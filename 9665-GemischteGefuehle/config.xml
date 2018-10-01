@@ -1,0 +1,7 @@
+<config>
+  <senderPort>5111</senderPort>
+  <listenerPort>4111</listenerPort>
+  <minUserDistance>0.5</minUserDistance>
+  <maxUserdistance>3.0</maxUserdistance>
+  <maxLeftRightDistance>0.8</maxLeftRightDistance>
+</config>
