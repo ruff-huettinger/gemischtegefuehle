@@ -16,10 +16,10 @@ public class GameeManager : MonoBehaviour {
     private GameObject singleObject;
     private Renderer singleObjectRenderer;
 
-    const int NUM_SLIDER = 14;
-    public float[] sliderValues = new float[NUM_SLIDER];
+
     private int SLIDER_ID_FRAGMENT = 9;
 
+    public InputManager inputManagerRef;
 
 	void Awake() {
         Configuration.LoadConfig();
@@ -27,19 +27,13 @@ public class GameeManager : MonoBehaviour {
 
     private void Start()
     {
-        float x = Configuration.GetInnerTextByTagName("centerX", 0);
-        float y = Configuration.GetInnerTextByTagName("centerY", 0);
-        float z = Configuration.GetInnerTextByTagName("centerZ", 1.0f);
-
         objectManager = GameObject.FindObjectOfType<ObjectManager>();
         bg = GameObject.Find("BG").GetComponent<RawImage>();
         singleObject = GameObject.Find("SingleObject");
         singleObjectRenderer = GameObject.Find("SingleObject").GetComponent<Renderer>();
 
-        for(int i = 0; i < NUM_SLIDER; i++){
-            Slider s = GameObject.Find("Slider ("+(i + 1) + ")").GetComponent<Slider>();
-            sliderValues[i] = s.value;
-        }
+        if (inputManagerRef == null)
+            inputManagerRef = GameObject.FindObjectOfType<InputManager>();
 
         objectManager.AddObject(singleObject.GetComponent<FeelingObject>());
 
@@ -70,9 +64,9 @@ public class GameeManager : MonoBehaviour {
     {
         updateBGColor();
         updateBGContrast();
-        objectManager.updateFGColor(sliderValues[4], sliderValues[5], sliderValues[6]);
-        objectManager.updateFGContrast(sliderValues[6], sliderValues[7]);
-        objectManager.updateFractionizing(sliderValues[SLIDER_ID_FRAGMENT-1]);
+        //objectManager.updateFGColor(inputManagerRef.sliderValues[4], inputManagerRef.sliderValues[5], inputManagerRef.sliderValues[6]);
+        //objectManager.updateFGContrast(inputManagerRef.sliderValues[6], inputManagerRef.sliderValues[7]);
+        //objectManager.updateFractionizing(inputManagerRef.sliderValues[SLIDER_ID_FRAGMENT-1]);
     }
 
     public void debugSliderChanged(Slider _slider)
@@ -82,48 +76,27 @@ public class GameeManager : MonoBehaviour {
         string stringID = _slider.name.Substring(startIndex+1, (endIndex - startIndex)-1);
         int id = Convert.ToInt32(stringID);
 
-        changeValue(id, _slider.value);
+        inputManagerRef.changeValue(id, _slider.value);
+
+        updateAll();
+
+
+    }
     
-    }
-    public void changeValue(int id, float value)
-    {
-        //Debug.Log(id + " changeValue value is " + value);
-        sliderValues[id - 1] = value;
-
-        if (id > 0 && id <= 3)
-        {
-            updateBGColor();
-        }
-        else if (id == 4)
-        {
-            updateBGContrast();
-        } else if (id > 4 && id <= 7)
-        {
-            objectManager.updateFGColor(sliderValues[4], sliderValues[5], sliderValues[6]);
-        }
-        else if (id == 8)
-        {
-            objectManager.updateFGContrast(sliderValues[6], sliderValues[7]);
-        }   else if (id == SLIDER_ID_FRAGMENT)
-        {
-            objectManager.updateFractionizing(sliderValues[SLIDER_ID_FRAGMENT -1]);
-        }
-
-    }
 
     #region updating the separate parameters
 
     public void updateBGColor()
     {
-        bg.material.color = Color.HSVToRGB(sliderValues[0], sliderValues[1], sliderValues[2]);
+        bg.material.color = Color.HSVToRGB(inputManagerRef.sliderValues[0], inputManagerRef.sliderValues[1], inputManagerRef.sliderValues[2]);
     }
     public void updateBGContrast()
     {
         float minContrast = 0.1f;
         float maxContrast = 4f;
-        float result = minContrast + sliderValues[3] * (maxContrast - minContrast);
+        float result = minContrast + inputManagerRef.sliderValues[3] * (maxContrast - minContrast);
 
-        bg.material.SetFloat("_Brightness", sliderValues[2]);
+        bg.material.SetFloat("_Brightness", inputManagerRef.sliderValues[2]);
         bg.material.SetFloat("_Contrast", result);
     }
 
