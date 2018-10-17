@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
 
-    public BmcmSensor usbAD;
+
+    //removeMe public BmcmSensor usbAD;
 
     const int NUM_SLIDER = 14;
     public float[] sliderValues = new float[NUM_SLIDER];
@@ -16,6 +17,8 @@ public class InputManager : MonoBehaviour {
     public bool useSensor = false;
 
     void Start () {
+
+        Debug.LogError("███   WARNING: bcmcSensor typ nicht gefunden, nimm bitte alle //removeMe raus über suchen&ersetzen und schau mal was da los ist");
         useSensor = Configuration.GetInnerTextByTagName("useSensor", "0") == "1";
         minSensorValue = Configuration.GetInnerTextByTagName("minSensorValue", 0);
         maxSensorValue = Configuration.GetInnerTextByTagName("naxSensorValue", 5);
@@ -23,8 +26,8 @@ public class InputManager : MonoBehaviour {
 
         if (useSensor)
         {
-            usbAD = new BmcmSensor("usb-ad");
-            usbAD.Init();
+            //removeMe usbAD = new BmcmSensor("usb-ad");
+            //removeMe usbAD.Init();
         }
 
         for (int i = 0; i < NUM_SLIDER; i++)
@@ -35,15 +38,19 @@ public class InputManager : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
+
         if (useSensor)
         {
+
             for (int i = 0; i < NUM_SLIDER; i++)
             {
-                sliderValues[i] = remap01(usbAD.GetAnalogIn(i), minSensorValue, maxSensorValue);
+                //removeMe sliderValues[i] = Mathf.InverseLerp( minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
+
                 Debug.Log(sliderValues[i]);
                 sliders[i].value = sliderValues[i];
             }
         }
+
 
     }
 
@@ -51,11 +58,6 @@ public class InputManager : MonoBehaviour {
     {
         //Debug.Log(id + " changeValue value is " + value);
         sliderValues[id - 1] = value;
-
     }
 
-    private float remap01(float value, float minIn, float maxIn)
-    {
-        return (value - minIn) / (maxIn - minIn);
-    }
 }
