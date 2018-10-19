@@ -3,37 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using RaymarchingToolkit;
 using UnityEngine.PostProcessing;
+using UnityEngine.UI;
 
 public class GemgefParameters : MonoBehaviour {
 
-    [Header("SLiders")]
-    public float SL01Fragmentierung;
-    [HideInInspector] public float[] stepsSL01 = new float[] { 0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f };
-    public float SL02Teilung;
-    [HideInInspector] public float[] stepsSL02 = new float[] { 0, .33f, .66f, 1 };
-    public float SL03Muster;
-    [HideInInspector] public float[] stepsSL03 = new float[] { 0, .3f, .6f, 1 };
-    public float SL04Bewegung;
-    [HideInInspector] public float[] stepsSL04 = new float[] { 0, .1f, .2f , .3f, .4f, .55f, .7f, .9f ,  1};
-    public float SL05Aggregatzustand;
-    [HideInInspector] public float[] stepsSL05 = new float[] { 0, .6f, 1 };
-    public float SL06Varianz;
-    public float SL06Transparenz;
-    [HideInInspector] public float[] stepsSL06 = new float[] { 0, 1 };
-    public float SL07Kontrast;
-    [HideInInspector] public float[] stepsSL07 = new float[] { 0, .2f,.5f,.8f, 1 };
-    public float SL08Helligkeit;
-    [HideInInspector] public float[] stepsSL08 = new float[] { 0, .2f, .5f, .8f, 1 };
-
     [Header("HSB Background")]
-    public float SL09HHintergrundfarbe;
-    public float SL09SHintergrundfarbe;
-    public float SL09BHintergrundfarbe;
+    public float SL001HHG;
+    public float SL001SHG;
+    public float SL001BHG;
+    public float SL002KontrHG;
+    [HideInInspector] public float[] stepsSL002 = new float[] { 0, .2f, .5f, .8f, 1 };
 
     [Header("HSB Foreground")]
-    public float SL10HVordergrundfarbe;
-    public float SL10SVordergrundfarbe;
-    public float SL10BVordergrundfarbe;
+    public float SL003HVG;
+    public float SL003SVG;
+    public float SL003BVG;
+    public float SL004KontrVG;
+    [HideInInspector] public float[] stepsSL004 = new float[] { 0, .2f, .5f, .8f, 1 };
+
+    [Header("SLiders")]
+    public float SL005Fragmentierung;
+    [HideInInspector] public float[] stepsSL005 = new float[] { 0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f };
+    public float SL006Teilung;
+    [HideInInspector] public float[] stepsSL006 = new float[] { 0, .33f, .66f, 1 };
+    public float SL007Muster;
+    [HideInInspector] public float[] stepsSL007 = new float[] { 0, .3f, .6f, 1 };
+    public float SL008Transparenz;
+    [HideInInspector] public float[] stepsSL008 = new float[] { 0, 1 };
+    public float SL009Varianz;
+    public float SL010Aggregatzustand;
+    [HideInInspector] public float[] stepsSL010 = new float[] { 0, .6f, 1 };
+
+
+
+
+
+
+
+    [HideInInspector] public float SL04Bewegung;
+    [HideInInspector] public float[] stepsSL04 = new float[] { 0, .1f, .2f, .3f, .4f, .55f, .7f, .9f, 1 };
 
     [Header("Better Dont Touch")]
     public bool prohibitUpdate = false;
@@ -53,6 +61,9 @@ public class GemgefParameters : MonoBehaviour {
     public RaymarchModifier Repeater;
     public Vector3 repeatDistance = new Vector3(40, 0, 60);
 
+    public Light raymarchLight1;
+    public Light raymarchLight2;
+
     GemgefObject[] Obj;
 
     public PostProcessingBehaviour post;
@@ -60,7 +71,12 @@ public class GemgefParameters : MonoBehaviour {
 
     public Vector3[] randomBase;
     public bool overrideRandomBase = false;
-    
+
+    public float deltaTime = 0.0f;
+    public bool adjustQualityByFrametime = true;
+    public float qualityScaling = 1f;
+    public Text InfoText;
+
 
     // Use this for initialization
     void Start()
@@ -99,21 +115,21 @@ public class GemgefParameters : MonoBehaviour {
 
     private void clampSliders()
     {
-        SL01Fragmentierung = Mathf.Clamp01(SL01Fragmentierung);
-        SL03Muster = Mathf.Clamp01(SL03Muster);
+        SL005Fragmentierung = Mathf.Clamp01(SL005Fragmentierung);
+        SL007Muster = Mathf.Clamp01(SL007Muster);
         SL04Bewegung = Mathf.Clamp01(SL04Bewegung);
-        SL06Varianz = Mathf.Clamp01(SL06Varianz);
-        SL06Transparenz = Mathf.Clamp01(SL06Transparenz);
-        SL05Aggregatzustand = Mathf.Clamp01(SL05Aggregatzustand);
-        SL02Teilung = Mathf.Clamp01(SL02Teilung);
-        SL07Kontrast = Mathf.Clamp01(SL07Kontrast);
-        SL08Helligkeit = Mathf.Clamp01(SL08Helligkeit);
-        SL09HHintergrundfarbe = Mathf.Clamp01(SL09HHintergrundfarbe);
-        SL09SHintergrundfarbe = Mathf.Clamp01(SL09SHintergrundfarbe);
-        SL09BHintergrundfarbe = Mathf.Clamp01(SL09BHintergrundfarbe);
-        SL10HVordergrundfarbe = Mathf.Clamp01(SL10HVordergrundfarbe);
-        SL10SVordergrundfarbe = Mathf.Clamp01(SL10SVordergrundfarbe);
-        SL10BVordergrundfarbe = Mathf.Clamp01(SL10BVordergrundfarbe);
+        SL009Varianz = Mathf.Clamp01(SL009Varianz);
+        SL008Transparenz = Mathf.Clamp01(SL008Transparenz);
+        SL010Aggregatzustand = Mathf.Clamp01(SL010Aggregatzustand);
+        SL006Teilung = Mathf.Clamp01(SL006Teilung);
+        SL002KontrHG = Mathf.Clamp01(SL002KontrHG);
+        SL004KontrVG = Mathf.Clamp01(SL004KontrVG);
+        SL001HHG = Mathf.Clamp01(SL001HHG);
+        SL001SHG = Mathf.Clamp01(SL001SHG);
+        SL001BHG = Mathf.Clamp01(SL001BHG);
+        SL003HVG = Mathf.Clamp01(SL003HVG);
+        SL003SVG = Mathf.Clamp01(SL003SVG);
+        SL003BVG = Mathf.Clamp01(SL003BVG);
     }
 
     public Vector3 maxspread = new Vector3(16, 9, 16);
@@ -131,11 +147,57 @@ public class GemgefParameters : MonoBehaviour {
     public int fps = 60;
     public float ms = 0;
     float realFPS = 60;
+
+    void managePerformance()
+    {
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        if (deltaTime > 0)
+        {
+            realFPS = 1 / deltaTime;
+            fps = (int)realFPS;
+            ms = (deltaTime * 1000f);
+        }
+        if (adjustQualityByFrametime)
+        {
+            if (realFPS < 13)
+                qualityScaling *= 0.90f;
+            if (realFPS < 16)
+                qualityScaling *= 0.95f;
+            else if(realFPS < 18)
+                qualityScaling *= 0.99f;
+            else if (realFPS > 20 && qualityScaling < 1)
+                qualityScaling *= 1.01f;
+            else if (realFPS < 30 && qualityScaling > 1)
+                qualityScaling *= 0.99f;
+            else if (realFPS > 30)
+                qualityScaling *= 1.01f;
+
+        // manage some values manually because we know what is going on
+        float rayValue; //use this for calculations before applying
+
+        rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0.6f, 0.6f, 0.5f });
+        rayValue += BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0.2f });
+        ray.Resolution = Mathf.Min(rayValue * qualityScaling, 0.7f);
+
+        rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 150, 140, 100 });
+        ray.Steps = Mathf.RoundToInt(Mathf.Min(rayValue * qualityScaling, 180));
+
+        rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0.5f, 0.4f, 0.3f });
+        rayValue += BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0f });
+        ray.ExtraAccuracy = Mathf.Min(rayValue * (.5f+.5f*qualityScaling), 0.8f);
+        }
+
+        InfoText.text = (1 / deltaTime).ToString("N0") + " fps"
+                + "\n" + (deltaTime * 1000).ToString("N0") + " ms"
+                + "\n" + qualityScaling.ToString("N2") + " quality"
+                + "\n" + ray.Resolution.ToString("N2") + " resolution"
+                + "\n" + ray.Steps.ToString("N0") + " Steps"
+                + "\n" + ray.ExtraAccuracy.ToString("N2") + " Accuracy";
+    }
+
     // Update is called once per frame
     void Update() {
-
-        float time = Time.realtimeSinceStartup;
-
+        managePerformance();
         if (!prohibitUpdate)
         {
 
@@ -146,47 +208,45 @@ public class GemgefParameters : MonoBehaviour {
 
             //displacements
 
-            dispInt.set(BenjasMath.mapSteps(SL01Fragmentierung, stepsSL01, new float[] { 0, .5f, 1, 2, 7, 0 }));
+            dispInt.set(BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0, .5f, 1, 2, 7, 0 }));
 
 
             // gas stuff
-            twist.set(BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 0, 0, 5 }));
-            blend.set(BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 0, 6, 2 }));
-            ray.Resolution = BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 0.6f, 0.6f, 0.5f })
-                            + BenjasMath.mapSteps(SL01Fragmentierung, stepsSL01, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0.2f });
-            ray.Steps = (int) BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 150, 140, 100 });
-            ray.ExtraAccuracy = BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 0.5f, 0.4f, 0.3f })
-                                + BenjasMath.mapSteps(SL01Fragmentierung, stepsSL01, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0f });
+            twist.set(BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0, 0, 5 }));
+            blend.set(BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0, 6, 2 }));
+
 
             //brightness and Contrast
 
             GrainModel.Settings grain = postpro.grain.settings;
-            grain.intensity = BenjasMath.mapSteps(SL07Kontrast,stepsSL07,new float[] { 1, 0,0,0, 2 });
-            //grain.intensity += BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { .1f, 0, 1.5f });
+            grain.intensity = BenjasMath.mapSteps(SL002KontrHG + SL004KontrVG, new float[] { 0, .1f, 1.9f, 2 }, new float[] { 1, 0,0, 2 });
+            //grain.intensity += BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { .1f, 0, 1.5f });
             postpro.grain.settings = grain;
-            ColorGradingModel.Settings grading = postpro.colorGrading.settings;
-            grading.basic.contrast = BenjasMath.mapSteps(SL07Kontrast, stepsSL07, new float[] { 0.1f, 0.2f, 1, 2, 2 });
-            grading.basic.postExposure = BenjasMath.mapSteps(SL08Helligkeit, stepsSL08, new float[] { -5, -4, 0, 10, 10 });
-            grading.basic.saturation = BenjasMath.mapSteps(SL08Helligkeit, stepsSL08, new float[] { 1.1f, 1f, 1, 1, .9f });
-            grading.basic.saturation *= BenjasMath.mapSteps(SL07Kontrast, stepsSL07, new float[] { .7f, .85f, 1, 1.2f, 1.4f });
-            postpro.colorGrading.settings = grading;
-            DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
-            lense.focalLength = BenjasMath.mapSteps(SL07Kontrast, stepsSL07, new float[] { 10f, 1.2f, 1.1f, 1, -10 });
-            lense.focalLength +=  BenjasMath.mapSteps(SL05Aggregatzustand, stepsSL05, new float[] { 0f, 0.05f, 9f });
-            lense.focalLength += Mathf.Pow(SL06Transparenz, 4)*8f;
+
+            ray.AmbientColor = Color.white * (1- SL004KontrVG);
+            raymarchLight1.intensity = SL004KontrVG * 2;
+            raymarchLight2.intensity = SL004KontrVG * 1;
+    /*
+    ColorGradingModel.Settings grading = postpro.colorGrading.settings;
+    grading.basic.contrast = BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { 0.1f, 0.2f, 1, 2, 2 });
+    grading.basic.postExposure = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { -5, -4, 0, 10, 10 });
+    grading.basic.saturation = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { 1.1f, 1f, 1, 1, .9f });
+    grading.basic.saturation *= BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { .7f, .85f, 1, 1.2f, 1.4f });
+    postpro.colorGrading.settings = grading;
+    */
+    DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
+            lense.focalLength = BenjasMath.map(SL004KontrVG, 0, .1f,  1.2f, 1.1f);
+            lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , 0, -10 );
+            lense.focalLength +=  BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 7f });
+            lense.focalLength += Mathf.Pow(SL008Transparenz, 4)*4f;
             lense.focalLength = Mathf.Clamp(lense.focalLength, 0, 100);
 
 
             postpro.depthOfField.settings = lense;
 
         }
-        time = Time.realtimeSinceStartup - time;
-        if (time > 0)
-        {
-            realFPS = Mathf.Lerp(1 / time, realFPS, 0.9f);
-            fps = (int) realFPS;
-            ms =  (time * 1000f);
-        }
+
+
     }
 
     public class Modifier

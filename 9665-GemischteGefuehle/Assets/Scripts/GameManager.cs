@@ -97,38 +97,37 @@ public class GameManager : MonoBehaviour {
         {
             
             case 0:
-                pars.SL09HHintergrundfarbe = Mathf.Clamp01(value); break;
+                pars.SL001HHG = Mathf.Clamp01(value); break;
             case 1:
-                pars.SL09SHintergrundfarbe = Mathf.Clamp01(value);break;
+                pars.SL001SHG = Mathf.Clamp01(value);break;
             case 2:
-                pars.SL09BHintergrundfarbe = Mathf.Clamp01(value); break;
+                pars.SL001BHG = Mathf.Clamp01(value); break;
             case 3:
-                pars.SL07Kontrast = Mathf.Clamp01(value); break;
+                pars.SL002KontrHG = Mathf.Clamp01(value); break;
 
             case 4:
-                pars.SL10HVordergrundfarbe = Mathf.Clamp01(value); break;
+                pars.SL003HVG = Mathf.Clamp01(value); break;
             case 5:
-                pars.SL10SVordergrundfarbe = Mathf.Clamp01(value); break;
+                pars.SL003SVG = Mathf.Clamp01(value); break;
             case 6:
-                pars.SL10BVordergrundfarbe = Mathf.Clamp01(value); break;
+                pars.SL003BVG = Mathf.Clamp01(value); break;
             case 7:
-                pars.SL08Helligkeit = Mathf.Clamp01(value); break;
+                pars.SL004KontrVG = Mathf.Clamp01(value); break;
 
             case 8:
-                pars.SL01Fragmentierung = Mathf.Clamp01(value); break;
+                pars.SL005Fragmentierung = Mathf.Clamp01(value); break;
             case 9:
-                pars.SL02Teilung = Mathf.Clamp01(value); break;
+                pars.SL006Teilung = Mathf.Clamp01(value); break;
             case 10:
-                pars.SL03Muster = Mathf.Clamp01(value); break;
+                pars.SL007Muster = Mathf.Clamp01(value); break;
             case 11:
-                pars.SL06Transparenz = Mathf.Clamp01(value); break;
+                pars.SL008Transparenz = Mathf.Clamp01(value); break;
             case 12:
-                pars.SL04Bewegung = Mathf.Clamp01(value); break;
+                pars.SL009Varianz = Mathf.Clamp01(value); break;
             case 13:
-                pars.SL05Aggregatzustand = Mathf.Clamp01(value); break;
+                pars.SL010Aggregatzustand = Mathf.Clamp01(value); break;
+            default: break;
 
-            case 14:
-                pars.SL06Varianz = Mathf.Clamp01(value); break;
         }
     }
 
