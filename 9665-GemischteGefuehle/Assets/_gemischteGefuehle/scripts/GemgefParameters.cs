@@ -177,14 +177,14 @@ public class GemgefParameters : MonoBehaviour {
 
         rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0.6f, 0.6f, 0.5f });
         rayValue += BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0.2f });
-        ray.Resolution = Mathf.Min(rayValue * qualityScaling, 0.7f);
+        ray.Resolution = Mathf.Clamp(rayValue * qualityScaling,0.1f, 0.7f);
 
         rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 150, 140, 100 });
-        ray.Steps = Mathf.RoundToInt(Mathf.Min(rayValue * qualityScaling, 180));
+        ray.Steps = Mathf.RoundToInt(Mathf.Clamp(rayValue * qualityScaling,50, 180));
 
         rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0.5f, 0.4f, 0.3f });
         rayValue += BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0f });
-        ray.ExtraAccuracy = Mathf.Min(rayValue * (.5f+.5f*qualityScaling), 0.8f);
+        ray.ExtraAccuracy = Mathf.Clamp(rayValue * (.5f+.5f*qualityScaling),0.3f, 0.8f);
         }
 
         InfoText.text = (1 / deltaTime).ToString("N0") + " fps"

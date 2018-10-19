@@ -15,11 +15,13 @@ public class GemgefObject : MonoBehaviour {
     private GemgefParameters.Modifier pixInt;
     private GemgefParameters.Modifier pixSep;
 
+    public bool modifyDispAndPix = false;
+
     public RaymarchBlend morpher;
     private GemgefParameters.Modifier morph;
     private Transform trafo;
 
-    GemgefParameters pars;
+    public GemgefParameters pars;
     public RaymarchObject[] objs;
     private GemgefParameters.Modifier[] col;
 
@@ -80,7 +82,8 @@ public class GemgefObject : MonoBehaviour {
         //n is a value between 0 and 1, stating which object in the array it is
     {
         float SL006Teilung = Mathf.Clamp01(pars.SL006Teilung + 0.001f);
-       if (n==0)
+        float speed = BenjasMath.mapSteps(pars.SL010Aggregatzustand, new float[] { 0, .5f, 1 }, new float[] { .1f, 1.5f, .3f });
+        if (n==0)
         {
             //scale the center up a bit while not parted
             trafo.localScale = Vector3.Lerp(scale * Mathf.Lerp(1 + Mathf.Max(1 - SL006Teilung, .5f),1,pars.SL009Varianz), trafo.localScale, smooth);
@@ -97,7 +100,7 @@ public class GemgefObject : MonoBehaviour {
 
             // put in the random factor
 
-            float speed =  BenjasMath.mapSteps(pars.SL010Aggregatzustand, new float[] { 0, .5f, 1 }, new float[] { .1f, 1.5f, .3f });
+            
             // calculate the speed and magnitude
             speedU = speed *                           BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 0  });
             speedV = speed *                           BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 1  });
@@ -193,7 +196,7 @@ public class GemgefObject : MonoBehaviour {
             
             trafo.localPosition = pos;
         }
-        trafo.Rotate(10*randomBase * Time.deltaTime);
+        trafo.Rotate(10*randomBase * speed * Time.deltaTime);
     }
     
 
@@ -205,45 +208,37 @@ public Vector3 eulers;
 
     public void update()
     {
+
         float varianz = pars.SL009Varianz;
         //displacements
 
         updateTransform();
-        try
+
+        if (modifyDispAndPix)
         {
-            dispInt.set(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.x, pars.SL009Varianz), pars.stepsSL005, new float[] { 0, 0, .2f, 1, 2f, 0 });
-            dispFreq.set(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.y, pars.SL009Varianz), pars.stepsSL005, new float[] { 3, 4, 4, 3, 5, 0 });
-            dispSpeed.set(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.z, pars.SL009Varianz), pars.stepsSL010, new float[] { 0, .2f, .4f });
+            try
+            {
+                dispInt.set(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.x, pars.SL009Varianz), pars.stepsSL005, new float[] { 0, 0, .2f, 1, 2f, 0 });
+                dispFreq.set(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.y, pars.SL009Varianz), pars.stepsSL005, new float[] { 3, 4, 4, 3, 5, 0 });
+                dispSpeed.set(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.z, pars.SL009Varianz), pars.stepsSL010, new float[] { 0, .2f, .4f });
+            } catch { }
 
+            // gas stuff
+            //if pixelate
+            pixInt.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0, -2, -35 }, randomBase.z, varianz);
+            pixSep.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0.01f, 0.01f, .12f }, randomBase.z, varianz);
+
+            //if displacement noise
+            //pixInt.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0, 0.1f, 10 }, randomBase.z, varianz);
+            //pixSep.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0.01f, 10f, .1f }, randomBase.z, varianz);
         }
-        catch 
-        {
-
-        }
-
-        //dispY.set(pars.SL005Fragmentierung, pars.stepsSL005, new float[] { 0, 0, 0, 0, 1, 4 }, randomBase.y, varianz);
-        //dispYSpeed.set(pars.SL010Aggregatzustand, pars.stepsSL008, new float[] { 0, 2, 1 }, randomBase.z, varianz);
-
-        // gas stuff
-        //if pixelate
-        pixInt.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0, -2, -35 }, randomBase.z, varianz);
-        pixSep.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0.01f, 0.01f, .12f }, randomBase.z, varianz);
-
-        
-        //if displacement noise
-        //pixInt.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0, 0.1f, 10 }, randomBase.z, varianz);
-        //pixSep.set(pars.SL010Aggregatzustand, pars.stepsSL010, new float[] { 0.01f, 10f, .1f }, randomBase.z, varianz);
-
 
         value = BenjasMath.mapSteps(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.y, varianz), pars.stepsSL005, new float[] { 0f, 0f, 0f, 0f, 1f, 1f });
         // this value will be used to lerp beween the value determined by 'Agregatszustand' and morphByFrag 
-        float morphByFrag = BenjasMath.mapSteps(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.y, varianz), pars.stepsSL005, new float[] { 0f, 0f, 0f, 0f, 1f, 2.85f });
-        float morphByAgr = BenjasMath.mapSteps(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.x, varianz), pars.stepsSL010, new float[] { .66f, 0, 0 });
+        float morphByFrag = BenjasMath.mapSteps(Mathf.Lerp(pars.SL005Fragmentierung, randomBase.y, varianz), pars.stepsSL005, new float[] { 1f, 1f, 1f, 1f, 0f, -1.85f });
+        float morphByAgr = BenjasMath.mapSteps(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.x, varianz), pars.stepsSL010, new float[] { .0f, 1, 1 });
         value = Mathf.Lerp(morphByAgr, morphByFrag, value);
-
         morph.set(value);
-
-
 
         for (int i = 0; i < objs.Length; i++)
         {
