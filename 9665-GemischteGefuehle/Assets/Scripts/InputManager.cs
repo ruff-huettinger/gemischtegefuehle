@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour {
 
         useSensor = Configuration.GetInnerTextByTagName("useSensor", "0") == "1";
         minSensorValue = Configuration.GetInnerTextByTagName("minSensorValue", 0);
-        maxSensorValue = Configuration.GetInnerTextByTagName("naxSensorValue", 5);
+        maxSensorValue = Configuration.GetInnerTextByTagName("maxSensorValue", 5);
 
 
         if (useSensor)
@@ -37,20 +37,16 @@ public class InputManager : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
-
         if (useSensor)
         {
-
             for (int i = 0; i < NUM_SLIDER; i++)
             {
-                sliderValues[i] = Mathf.InverseLerp( minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
+                sliderValues[i] = 1 - Mathf.InverseLerp( minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
 
-                Debug.Log(sliderValues[i]);
+                //Debug.Log(sliderValues[i]);
                 sliders[i].value = sliderValues[i];
             }
         }
-
-
     }
 
     public void changeValue(int id, float value)
