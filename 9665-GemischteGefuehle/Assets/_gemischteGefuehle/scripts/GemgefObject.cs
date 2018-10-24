@@ -17,13 +17,12 @@ public class GemgefObject : MonoBehaviour {
 
     public bool modifyDispAndPix = false;
 
-    public RaymarchBlend morpher;
+    public RaymarchObject morpher;
     private GemgefParameters.Modifier morph;
     private Transform trafo;
 
     public GemgefParameters pars;
-    public RaymarchObject[] objs;
-    private GemgefParameters.Modifier[] col;
+    private GemgefParameters.Modifier col;
 
     public Vector3 randomBase = Vector3.one;
     public Vector3 scale;
@@ -39,14 +38,10 @@ public class GemgefObject : MonoBehaviour {
         dispSpeed = new GemgefParameters.Modifier(displacement, "speed");
         pixInt = new GemgefParameters.Modifier(pixelate, "intensity");
         pixSep = new GemgefParameters.Modifier(pixelate, "separation");
-        morph = new GemgefParameters.Modifier(morpher, "whichObject");
+        morph = new GemgefParameters.Modifier(morpher, "morph");
         trafo = morpher.transform;
-        objs = trafo.GetComponentsInChildren<RaymarchObject>();
-        col = new GemgefParameters.Modifier[objs.Length];
-        for (int i= 0;i< objs.Length;i++)
-        {
-            col[i] = new GemgefParameters.Modifier(objs[i], "color",true);
-        }
+        col  = new GemgefParameters.Modifier(morpher, "color",true);
+        
         scale = trafo.localScale;
     }
 
@@ -239,11 +234,7 @@ public Vector3 eulers;
         float morphByAgr = BenjasMath.mapSteps(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.x, varianz), pars.stepsSL010, new float[] { .0f, 1, 1 });
         value = Mathf.Lerp(morphByAgr, morphByFrag, value);
         morph.set(value);
-
-        for (int i = 0; i < objs.Length; i++)
-        {
-            col[i].set(pars.SL003HVG, pars.SL003SVG, Mathf.Pow(pars.SL003BVG,3)*8, randomBase, varianz);
-        }
+        col.set(pars.SL003HVG, pars.SL003SVG, Mathf.Pow(pars.SL003BVG,3)*8, randomBase, varianz);
 
     }
 

@@ -1261,18 +1261,18 @@ float fersertWaves(float3 p, float height) {
 }
 
 // Light Sun
-uniform float4 Sun_1568185481PosAndRange;
-uniform float4 Sun_1568185481ColorAndIntensity;
-uniform float3 Sun_1568185481Direction;
-uniform float Sun_1568185481Penumbra;
-uniform int Sun_1568185481ShadowSteps;
+uniform float4 Sun_3738349982PosAndRange;
+uniform float4 Sun_3738349982ColorAndIntensity;
+uniform float3 Sun_3738349982Direction;
+uniform float Sun_3738349982Penumbra;
+uniform int Sun_3738349982ShadowSteps;
 
 // UNIFORMS AND FUNCTIONS
-uniform float x_2589822400_cf180864_MirrorX;
-uniform float x_2589822400_cf180864_MirrorY;
-uniform float x_2589822400_cf180864_MirrorZ;
-uniform float4x4 x_2589822400_cf180864_pivot;
-uniform float x_2589822400_cf180864_invert;
+uniform float x_606182399_cf180864_MirrorX;
+uniform float x_606182399_cf180864_MirrorY;
+uniform float x_606182399_cf180864_MirrorZ;
+uniform float4x4 x_606182399_cf180864_pivot;
+uniform float x_606182399_cf180864_invert;
 float3 modifier_Mirror1(float3 p , float _INP_MirrorX, float _INP_MirrorY, float _INP_MirrorZ, float4x4 _INP_pivot, float _INP_invert) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Modifiers/Mirror 1.asset
     float3 MirrorPosition = -objPos(_INP_pivot, float3(0,0,0));
@@ -1281,16 +1281,16 @@ float3 modifier_Mirror1(float3 p , float _INP_MirrorX, float _INP_MirrorY, float
     return lerp(p, c1, float3(_INP_MirrorX, _INP_MirrorY, _INP_MirrorZ));
     
 }
-uniform float4x4 _2589822400Matrix;
-uniform float4x4 _2589822400InverseMatrix;
-uniform float x_2233592039_6492bb9b_radius;
+uniform float4x4 _606182399Matrix;
+uniform float4x4 _606182399InverseMatrix;
+uniform float x_2978835386_6492bb9b_radius;
 float object_Sphere(float3 p , float _INP_radius) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Objects/Sphere.asset
     return length(p) - _INP_radius;
 }
-uniform float x_3537553949_ce07b471_x;
-uniform float x_3537553949_ce07b471_y;
-uniform float x_3537553949_ce07b471_z;
+uniform float x_3738349978_ce07b471_x;
+uniform float x_3738349978_ce07b471_y;
+uniform float x_3738349978_ce07b471_z;
 float object_Box1(float3 p , float _INP_x, float _INP_y, float _INP_z) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Objects/Box 1.asset
     float3 d = abs(p)-float3(_INP_x,_INP_y,_INP_z);
@@ -1308,19 +1308,19 @@ float object_Box1(float3 p , float _INP_x, float _INP_y, float _INP_z) {
     
 }
 // uniforms for Sphere
-uniform float4x4 _2233592039Matrix;
-uniform float _2233592039MinScale;
+uniform float4x4 _2978835386Matrix;
+uniform float _2978835386MinScale;
 // uniforms for Box 1
-uniform float4x4 _3537553949Matrix;
-uniform float _3537553949MinScale;
-uniform sampler2D x_2233592039_41f55cf7_bumpmap;
-uniform float x_2233592039_41f55cf7_bumpfactor;
-uniform float x_2233592039_41f55cf7_bumpmapsize;
-uniform float4 x_2233592039_41f55cf7_color;
-uniform sampler2D x_3537553949_41f55cf7_bumpmap;
-uniform float x_3537553949_41f55cf7_bumpfactor;
-uniform float x_3537553949_41f55cf7_bumpmapsize;
-uniform float4 x_3537553949_41f55cf7_color;
+uniform float4x4 _3738349978Matrix;
+uniform float _3738349978MinScale;
+uniform sampler2D x_2978835386_41f55cf7_bumpmap;
+uniform float x_2978835386_41f55cf7_bumpfactor;
+uniform float x_2978835386_41f55cf7_bumpmapsize;
+uniform float4 x_2978835386_41f55cf7_color;
+uniform sampler2D x_3738349978_41f55cf7_bumpmap;
+uniform float x_3738349978_41f55cf7_bumpfactor;
+uniform float x_3738349978_41f55cf7_bumpmapsize;
+uniform float4 x_3738349978_41f55cf7_color;
 float3 material_bumpedcolor(inout float3 normal, float3 p, float3 rayDir, sampler2D _INP_bumpmap, float _INP_bumpfactor, float _INP_bumpmapsize, float4 _INP_color) {
     // Generated from Assets/Raymarching Toolkit/Examples/Assets/Terrain/bumped color.asset
     float4 col = _INP_color;
@@ -1334,11 +1334,11 @@ float3 MaterialFunc(float nf, inout float3 normal, float3 p, float3 rayDir, out 
     objectID = ceil(nf) / (float)2;
     [branch] if (nf <= 1) {
     //    objectID = 0.5;
-        return material_bumpedcolor(normal, objPos(_2233592039Matrix, p), rayDir, x_2233592039_41f55cf7_bumpmap, x_2233592039_41f55cf7_bumpfactor, x_2233592039_41f55cf7_bumpmapsize, x_2233592039_41f55cf7_color);
+        return material_bumpedcolor(normal, objPos(_2978835386Matrix, p), rayDir, x_2978835386_41f55cf7_bumpmap, x_2978835386_41f55cf7_bumpfactor, x_2978835386_41f55cf7_bumpmapsize, x_2978835386_41f55cf7_color);
     }
     else if(nf <= 2) {
     //    objectID = 1;
-        return material_bumpedcolor(normal, objPos(_3537553949Matrix, p), rayDir, x_3537553949_41f55cf7_bumpmap, x_3537553949_41f55cf7_bumpfactor, x_3537553949_41f55cf7_bumpmapsize, x_3537553949_41f55cf7_color);
+        return material_bumpedcolor(normal, objPos(_3738349978Matrix, p), rayDir, x_3738349978_41f55cf7_bumpmap, x_3738349978_41f55cf7_bumpfactor, x_3738349978_41f55cf7_bumpmapsize, x_3738349978_41f55cf7_color);
     }
         objectID = 0;
         return float3(1.0, 0.0, 1.0);
@@ -1350,10 +1350,10 @@ float2 map(float3 p) {
 	float2 result = float2(1.0, 0.0);
 	
 {
-    float _2233592039Distance = object_Sphere(objPos(_2233592039Matrix, p), x_2233592039_6492bb9b_radius) * _2233592039MinScale;
-    float3 p_2589822400 = modifier_Mirror1(p, x_2589822400_cf180864_MirrorX, x_2589822400_cf180864_MirrorY, x_2589822400_cf180864_MirrorZ, x_2589822400_cf180864_pivot, x_2589822400_cf180864_invert);
-    float _3537553949Distance = object_Box1(objPos(_3537553949Matrix, p_2589822400), x_3537553949_ce07b471_x, x_3537553949_ce07b471_y, x_3537553949_ce07b471_z) * _3537553949MinScale;
-    result = opSubtract(float2(_2233592039Distance, /*material ID*/0.5), float2(_3537553949Distance, /*material ID*/1.5));
+    float _2978835386Distance = object_Sphere(objPos(_2978835386Matrix, p), x_2978835386_6492bb9b_radius) * _2978835386MinScale;
+    float3 p_606182399 = modifier_Mirror1(p, x_606182399_cf180864_MirrorX, x_606182399_cf180864_MirrorY, x_606182399_cf180864_MirrorZ, x_606182399_cf180864_pivot, x_606182399_cf180864_invert);
+    float _3738349978Distance = object_Box1(objPos(_3738349978Matrix, p_606182399), x_3738349978_ce07b471_x, x_3738349978_ce07b471_y, x_3738349978_ce07b471_z) * _3738349978MinScale;
+    result = opSubtract(float2(_2978835386Distance, /*material ID*/0.5), float2(_3738349978Distance, /*material ID*/1.5));
     }
 	return result;
 }
@@ -1368,10 +1368,10 @@ float3 getLights(in float3 color, in float3 pos, in float3 normal) {
 	
 {
 LightInfo light;
-light.posAndRange = Sun_1568185481PosAndRange;
-light.colorAndIntensity = Sun_1568185481ColorAndIntensity;
-light.direction = Sun_1568185481Direction;
-lightValue += getDirectionalLight(input, light)* softshadow(input.pos, -light.direction, INFINITY, Sun_1568185481Penumbra, Sun_1568185481ShadowSteps);
+light.posAndRange = Sun_3738349982PosAndRange;
+light.colorAndIntensity = Sun_3738349982ColorAndIntensity;
+light.direction = Sun_3738349982Direction;
+lightValue += getDirectionalLight(input, light)* softshadow(input.pos, -light.direction, INFINITY, Sun_3738349982Penumbra, Sun_3738349982ShadowSteps);
 }
 	return lightValue;
 }
