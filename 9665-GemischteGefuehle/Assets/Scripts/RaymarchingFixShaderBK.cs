@@ -62,7 +62,7 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
         if(writeShader && !File.Exists(path))
         {
             writeShader = false;
-            test1.Replace(",5)", ".5)");
+            test1 = test1.Replace(",5)", ".5)");
             WriteString(path,test1);
             info = "please tick read shader box above";
 }
