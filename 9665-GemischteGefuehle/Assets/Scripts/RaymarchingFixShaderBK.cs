@@ -8,16 +8,22 @@ using System.IO;
 [ExecuteInEditMode]
 public class RaymarchingFixShaderBK : MonoBehaviour {
  
-	// Use this for initialization
-	void Start () {
-		
-	}
-
     Raymarcher ray;
+    public bool updateThisWindow = false;
+    public string lastUpdate = "never";
+    [Header("info only, dont change any values")]
+    public bool observingShader = true;
+    public Shader generatedShader;
+    public string info = "Starting shader fix";
+    bool writeShader = false;
+    public string path;
+    public static string shaderCode;
+    public System.DateTime lastWriteTime;
+    public bool shaderHasBeenChanged = true;
+    
 
     static void WriteString(string path, string text)
     {
-
         //writeShader some text to the test.txt file
         StreamWriter writer = new StreamWriter(path, true);
         writer.Write(text);
@@ -31,9 +37,7 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
 
     static void ReadString(string path)
     {
-     
-
-        //readShader the text from directly from the test.txt file
+        //observingShader the text from directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         shaderCode = reader.ReadToEnd();
         reader.Close();  
@@ -41,10 +45,12 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
+        lastUpdate = System.DateTime.Now.ToLongTimeString();
+        updateThisWindow = false;
         //test = shaderCode;
-        if (!readShader && !writeShader)
-            readShader = true;
-        if (readShader)
+        if (!observingShader && !writeShader)
+            observingShader = true;
+        if (observingShader)
         {
             //see if there is a raymarcher
             if (ray == null)
@@ -64,7 +70,7 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
                     Debug.Log("shader file was gone, but I have cached some shader data and will write them to the file " + path);
                  
                     info += "- writing shader from cache";
-                    readShader = false;
+                    observingShader = false;
                     writeShader = true;
                 }
                 else
@@ -78,16 +84,16 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             path = Application.dataPath + "/Scenes/Shaders/Generated/" + path + ".shader";
 
             shaderHasBeenChanged = File.GetLastWriteTime(path) != lastWriteTime;
-
             if (shaderHasBeenChanged)
             {
+                lastWriteTime = File.GetLastWriteTime(path);
                 info = "shader changed, reading file";
                 ReadString(path);
 
                 if (shaderCode.Contains(",5)"))
                 {
 
-                    readShader = false;
+                    observingShader = false;
                     shaderCode = shaderCode.Replace(",5)", ".5)");
                     writeShader = true;
                     info = "shader fixed, delete old shader file (click generated shader below)";
@@ -105,19 +111,12 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             WriteString(path, shaderCode);
             Debug.Log("shader code: \n"+shaderCode);
             Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
-            readShader = false;
+            observingShader = false;
             writeShader = true;
         }
 
     }
-    public string info = "please tick read shader box above";
-    bool readShader = true;
-    public Shader generatedShader;
-    bool writeShader = false;
-    public string path;
-    public static string shaderCode;
-    public System.DateTime lastWriteTime;
-    public bool shaderHasBeenChanged = true;
+
 
 
 
