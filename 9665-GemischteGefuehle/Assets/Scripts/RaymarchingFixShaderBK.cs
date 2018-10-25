@@ -43,13 +43,30 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
         reader.Close();  
     }
     
+
+
     // Update is called once per frame
     void Update () {
         lastUpdate = System.DateTime.Now.ToLongTimeString();
         updateThisWindow = false;
         //test = shaderCode;
-        if (!observingShader && !writeShader)
-            observingShader = true;
+
+        if (writeShader)
+            if (!File.Exists(path))
+            {
+                WriteString(path, shaderCode);
+                Debug.Log("shader code: \n" + shaderCode);
+                Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
+                lastWriteTime = File.GetLastWriteTime(path);
+                observingShader = true;
+                writeShader = false;
+            }
+            else
+            {
+                observingShader = File.GetLastWriteTime(path) != lastWriteTime;
+            }
+
+
         if (observingShader)
         {
             //see if there is a raymarcher
@@ -84,6 +101,7 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             path = Application.dataPath + "/Scenes/Shaders/Generated/" + path + ".shader";
 
             shaderHasBeenChanged = File.GetLastWriteTime(path) != lastWriteTime;
+
             if (shaderHasBeenChanged)
             {
                 lastWriteTime = File.GetLastWriteTime(path);
@@ -103,21 +121,12 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
                 else
                 {
                     info = "shader looks ok";
+                    writeShader = false;
                 }
             }
         }
-        if (writeShader && !File.Exists(path))
-        {
-            WriteString(path, shaderCode);
-            Debug.Log("shader code: \n"+shaderCode);
-            Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
-            observingShader = false;
-            writeShader = true;
-        }
+
 
     }
-
-
-
 
 }
