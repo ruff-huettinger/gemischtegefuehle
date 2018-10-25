@@ -21,21 +21,6 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
      System.DateTime lastWriteTime = System.DateTime.MaxValue;
     public bool shaderHasBeenChanged = true;
 
-    public void OnApplicationQuit()
-    {
-        observingShader = true;
-    }
-    public void Start()
-    {
-        observingShader = true;
-    }
-
-    public void FixedUpdate()
-    {
-        observingShader = false;
-        writeShader = false;
-    }
-
     static void WriteString(string path, string text)
     {
         //writeShader some text to the test.txt file
@@ -57,12 +42,22 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
         reader.Close();  
     }
 
+    private void OnRenderObject()
+    {
+        Update();
+    }
 
+    private void OnWillRenderObject()
+    {
+        Update();
+    }
 
     // Update is called once per frame
     [ExecuteInEditMode]
     void Update () {
-        lastUpdate = System.DateTime.Now.ToLongTimeString();
+        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+        { return; }
+            lastUpdate = System.DateTime.Now.ToLongTimeString();
         updateThisWindow = false;
         //test = shaderCode;
 
