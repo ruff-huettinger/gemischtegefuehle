@@ -35,13 +35,13 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
 
         //readShader the text from directly from the test.txt file
         StreamReader reader = new StreamReader(path);
-        test1 = reader.ReadToEnd();
+        shaderCode = reader.ReadToEnd();
         reader.Close();  
     }
     
     // Update is called once per frame
     void Update () {
-        //test = test1;
+        //test = shaderCode;
         if (!readShader && !writeShader)
             readShader = true;
         if (readShader)
@@ -50,7 +50,8 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             if (ray == null)
             {
                 ray = FindObjectOfType<Raymarcher>();
-                if (ray == null) return;
+                if (ray == null)
+                    return; ////////////////////////////////////////////////////////////////
             }
             // get its shader
             generatedShader = ray.GetRaymarchMaterial().shader;
@@ -58,8 +59,10 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             {
                 //shader has gone, see if there is something in the cache
                 info = "shader missing";
-                if (test1 !=null && test1.Length > 0 && path != null && path.Length>0)
+                if (shaderCode !=null && shaderCode.Length > 0 && path != null && path.Length>0)
                 {
+                    Debug.Log("shader file was gone, but I have cached some shader data and will write them to the file " + path);
+                 
                     info += "- writing shader from cache";
                     readShader = false;
                     writeShader = true;
@@ -68,31 +71,39 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
                 {
                     Debug.LogError("the shader is missing and nothing has been cashed, please regenerate the shader by pressing 'compile', if neccesairy disable auto compile", ray.gameObject);
                 }
-                return;
+                return; ////////////////////////////////////////////////////////////////
             }
             path = generatedShader.name;
             path = path.Remove(0, path.IndexOf('/', 0) + 1);
             path = Application.dataPath + "/Scenes/Shaders/Generated/" + path + ".shader";
-            ReadString(path);
-            
-            if (test1.Contains(",5)"))
-            {
 
-                readShader = false;
-                 test1 = test1.Replace(",5)", ".5)");
-                writeShader = true;
-                info = "shader fixed, delete old shader file (click generated shader below)";
-                Debug.LogError("found problem in shader, please delete old shader file " + path, generatedShader);
-                return;
-            }
-            else
+            shaderHasBeenChanged = File.GetLastWriteTime(path) != lastWriteTime;
+
+            if (shaderHasBeenChanged)
             {
-                info = "shader looks ok";
+                info = "shader changed, reading file";
+                ReadString(path);
+
+                if (shaderCode.Contains(",5)"))
+                {
+
+                    readShader = false;
+                    shaderCode = shaderCode.Replace(",5)", ".5)");
+                    writeShader = true;
+                    info = "shader fixed, delete old shader file (click generated shader below)";
+                    Debug.LogError("shader fixed :) , please delete old shader file, so I can write a new one. \n Shader file lies in: \n" + path +"\nor click here", generatedShader);
+                    return; ////////////////////////////////////////////////////////////////
+                }
+                else
+                {
+                    info = "shader looks ok";
+                }
             }
         }
         if (writeShader && !File.Exists(path))
         {
-            WriteString(path, test1);
+            WriteString(path, shaderCode);
+            Debug.Log("shader code: \n"+shaderCode);
             Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
             readShader = false;
             writeShader = true;
@@ -104,7 +115,9 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     public Shader generatedShader;
     bool writeShader = false;
     public string path;
-    public static string test1;
+    public static string shaderCode;
+    public System.DateTime lastWriteTime;
+    public bool shaderHasBeenChanged = true;
 
 
 
