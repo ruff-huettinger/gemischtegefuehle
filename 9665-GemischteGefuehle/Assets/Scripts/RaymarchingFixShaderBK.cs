@@ -7,7 +7,7 @@ using System.IO;
 
 [ExecuteInEditMode]
 public class RaymarchingFixShaderBK : MonoBehaviour {
- 
+#if UNITY_EDITOR 
     Raymarcher ray;
     public bool updateThisWindow = false;
     public string lastUpdate = "never";
@@ -20,6 +20,21 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     public static string shaderCode;
      System.DateTime lastWriteTime = System.DateTime.MaxValue;
     public bool shaderHasBeenChanged = true;
+
+    public void OnApplicationQuit()
+    {
+        observingShader = true;
+    }
+    public void Start()
+    {
+        observingShader = true;
+    }
+
+    public void FixedUpdate()
+    {
+        observingShader = false;
+        writeShader = false;
+    }
 
     static void WriteString(string path, string text)
     {
@@ -53,11 +68,9 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     }
 
     // Update is called once per frame
-    [ExecuteInEditMode]
+
     void Update () {
-        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-        { return; }
-            lastUpdate = System.DateTime.Now.ToLongTimeString();
+        lastUpdate = System.DateTime.Now.ToLongTimeString();
         updateThisWindow = false;
         //test = shaderCode;
 
@@ -147,5 +160,6 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
 
 
     }
+#endif
 
 }

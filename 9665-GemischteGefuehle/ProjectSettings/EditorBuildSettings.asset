@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/9665-GemischteGefuehle.unity
     guid: b27891ae28c232041b49d2dfdd7cfc94
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scenes alt/_test05.unity
     guid: 8883121c8f64ff741a9ae8038c41df9d
   m_configObjects: {}
