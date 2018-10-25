@@ -9810,8 +9810,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1002083427}
-  - component: {fileID: 1002083426}
   - component: {fileID: 1002083428}
+  - component: {fileID: 1002083426}
   m_Layer: 0
   m_Name: Raymarcher
   m_TagString: Untagged
@@ -9830,7 +9830,7 @@ MonoBehaviour:
   m_Script: {fileID: -112464798, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3738984715
+  _savedGUID: 1015510448
   CompileShaderAutomatically: 0
   _savedActiveObjects:
   - {fileID: 2069418016}
@@ -9870,8 +9870,8 @@ MonoBehaviour:
   - {fileID: 1016435267}
   - {fileID: 1838438640}
   - {fileID: 627365160}
-  _lastShaderPath: Assets\Scenes/Shaders/Generated\_9665-GemischteGefuehle_3738984715.generated.shader
-  _lastShader: {fileID: 4800000, guid: afbbfd278cb8a104e9e18070c00910c2, type: 3}
+  _lastShaderPath: Assets\Scenes/Shaders/Generated\_9665-GemischteGefuehle_1015510448.generated.shader
+  _lastShader: {fileID: 4800000, guid: 1358d5fa7b15a36459e4c700a534b96a, type: 3}
   Steps: 150
   AmbientColor: {r: 1, g: 1, b: 1, a: 0}
   Fog: 0
@@ -9880,7 +9880,7 @@ MonoBehaviour:
   FadeToSkybox: 0
   FadeToSkyboxDistance: 101.9
   ExtraAccuracy: 0.4
-  Resolution: 0.6
+  Resolution: 0.62
   _RaymarchDrawDistance: 200
   AmbientOcclusion: 0
   AmbientOcclusionAmount: 0.985
@@ -9926,11 +9926,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0128d230941ea8349adc9946fa397576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  read: 0
-  write: 0
-  test: 
-  path: D:/git/gemischtegefuehle/9665-GemischteGefuehle/Assets/Scenes/Shaders/Generated/_9665-GemischteGefuehle_3738984715.generated.shader
-  generatedShader: {fileID: 4800000, guid: afbbfd278cb8a104e9e18070c00910c2, type: 3}
+  info: done, now delete shader (click generated shader below)
+  generatedShader: {fileID: 17, guid: 0000000000000000e000000000000000, type: 0}
+  path: D:/git/gemischtegefuehle/9665-GemischteGefuehle/Assets/Scenes/Shaders/Generated/InternalErrorShader.shader
 --- !u!1 &1016435263
 GameObject:
   m_ObjectHideFlags: 0

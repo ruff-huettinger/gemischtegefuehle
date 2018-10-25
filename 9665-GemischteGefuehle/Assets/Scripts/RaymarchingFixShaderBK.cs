@@ -42,33 +42,65 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //test = test1;
+        if (!readShader && !writeShader)
+            readShader = true;
         if (readShader)
         {
-            readShader = false;
+            //see if there is a raymarcher
             if (ray == null)
             {
                 ray = FindObjectOfType<Raymarcher>();
                 if (ray == null) return;
             }
+            // get its shader
             generatedShader = ray.GetRaymarchMaterial().shader;
-            if (generatedShader == null) return;
+;            if (generatedShader == null || generatedShader.name == "Hidden/InternalErrorShader")
+            {
+                //shader has gone, see if there is something in the cache
+                info = "shader missing";
+                if (test1 !=null && test1.Length > 0 && path != null && path.Length>0)
+                {
+                    info += "- writing shader from cache";
+                    readShader = false;
+                    writeShader = true;
+                }
+                else
+                {
+                    Debug.LogError("the shader is missing and nothing has been cashed, please regenerate the shader by pressing 'compile', if neccesairy disable auto compile", ray.gameObject);
+                }
+                return;
+            }
             path = generatedShader.name;
             path = path.Remove(0, path.IndexOf('/', 0) + 1);
             path = Application.dataPath + "/Scenes/Shaders/Generated/" + path + ".shader";
             ReadString(path);
-            info = "done, now delete shader (click generated shader below)";
+            
+            if (test1.Contains(",5)"))
+            {
+
+                readShader = false;
+                 test1 = test1.Replace(",5)", ".5)");
+                writeShader = true;
+                info = "shader fixed, delete old shader file (click generated shader below)";
+                Debug.LogError("found problem in shader, please delete old shader file " + path, generatedShader);
+                return;
+            }
+            else
+            {
+                info = "shader looks ok";
+            }
+        }
+        if (writeShader && !File.Exists(path))
+        {
+            WriteString(path, test1);
+            Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
+            readShader = false;
             writeShader = true;
         }
-        if(writeShader && !File.Exists(path))
-        {
-            writeShader = false;
-            test1 = test1.Replace(",5)", ".5)");
-            WriteString(path,test1);
-            info = "please tick read shader box above";
-}
+
     }
     public string info = "please tick read shader box above";
-    public bool readShader;
+    bool readShader = true;
     public Shader generatedShader;
     bool writeShader = false;
     public string path;
