@@ -15,12 +15,26 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
     public bool observingShader = true;
     public Shader generatedShader;
     public string info = "Starting shader fix";
-    bool writeShader = false;
+    public bool writeShader = false;
     public string path;
     public static string shaderCode;
-    public System.DateTime lastWriteTime;
+     System.DateTime lastWriteTime = System.DateTime.MaxValue;
     public bool shaderHasBeenChanged = true;
-    
+
+    public void OnApplicationQuit()
+    {
+        observingShader = true;
+    }
+    public void Start()
+    {
+        observingShader = true;
+    }
+
+    public void FixedUpdate()
+    {
+        observingShader = false;
+        writeShader = false;
+    }
 
     static void WriteString(string path, string text)
     {
@@ -42,29 +56,17 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
         shaderCode = reader.ReadToEnd();
         reader.Close();  
     }
-    
+
 
 
     // Update is called once per frame
+    [ExecuteInEditMode]
     void Update () {
         lastUpdate = System.DateTime.Now.ToLongTimeString();
         updateThisWindow = false;
         //test = shaderCode;
 
-        if (writeShader)
-            if (!File.Exists(path))
-            {
-                WriteString(path, shaderCode);
-                Debug.Log("shader code: \n" + shaderCode);
-                Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
-                lastWriteTime = File.GetLastWriteTime(path);
-                observingShader = true;
-                writeShader = false;
-            }
-            else
-            {
-                observingShader = File.GetLastWriteTime(path) != lastWriteTime;
-            }
+
 
 
         if (observingShader)
@@ -100,8 +102,6 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
             path = path.Remove(0, path.IndexOf('/', 0) + 1);
             path = Application.dataPath + "/Scenes/Shaders/Generated/" + path + ".shader";
 
-            shaderHasBeenChanged = File.GetLastWriteTime(path) != lastWriteTime;
-
             if (shaderHasBeenChanged)
             {
                 lastWriteTime = File.GetLastWriteTime(path);
@@ -115,8 +115,7 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
                     shaderCode = shaderCode.Replace(",5)", ".5)");
                     writeShader = true;
                     info = "shader fixed, delete old shader file (click generated shader below)";
-                    Debug.LogError("shader fixed :) , please delete old shader file, so I can write a new one. \n Shader file lies in: \n" + path +"\nor click here", generatedShader);
-                    return; ////////////////////////////////////////////////////////////////
+                    //Debug.LogError("shader fixed :) , please delete old shader file, so I can write a new one. \n Shader file lies in: \n" + path +"\nor click here", generatedShader);
                 }
                 else
                 {
@@ -124,6 +123,31 @@ public class RaymarchingFixShaderBK : MonoBehaviour {
                     writeShader = false;
                 }
             }
+            shaderHasBeenChanged = File.GetLastWriteTime(path) != lastWriteTime;
+        }
+
+        if (writeShader)
+        {
+            if (File.Exists(path))
+            {
+                FileInfo fileinfo = new FileInfo(path);
+                fileinfo.IsReadOnly = false;
+                File.Delete(path);
+                return;
+            }
+            else
+            {
+                WriteString(path, shaderCode);
+                Debug.Log("shader code: \n" + shaderCode);
+                Debug.Log("raymarching generated shader fixed - sometimes I impress myself");
+                lastWriteTime = File.GetLastWriteTime(path);
+                shaderHasBeenChanged = false;
+                observingShader = true;
+                writeShader = false;
+                UnityEditor.AssetDatabase.Refresh();
+                return;
+            }
+
         }
 
 
