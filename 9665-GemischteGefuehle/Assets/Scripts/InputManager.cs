@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
-
-
     public BmcmSensor usbAD;
 
     const int NUM_SLIDER = 14;
@@ -13,14 +10,20 @@ public class InputManager : MonoBehaviour {
     Slider[] sliders = new Slider[NUM_SLIDER];
     float minSensorValue = 0;
     float maxSensorValue = 5;
+    int counter = 0;
 
     public bool useSensor = false;
+
+    private int senderPort;
+    private float MOVEMENT_THRESHOLD = 0.2f;
+    private int UPDATE_FREQ = 2;
 
     void Start () {
 
         useSensor = Configuration.GetInnerTextByTagName("useSensor", "0") == "1";
         minSensorValue = Configuration.GetInnerTextByTagName("minSensorValue", 0);
         maxSensorValue = Configuration.GetInnerTextByTagName("maxSensorValue", 5);
+        senderPort = Convert.ToInt32( Configuration.GetInnerTextByTagName("senderPort", 4567));
 
 
         if (useSensor)
@@ -39,13 +42,25 @@ public class InputManager : MonoBehaviour {
 	void FixedUpdate () {
         if (useSensor)
         {
-            for (int i = 0; i < NUM_SLIDER; i++)
-            {
-                sliderValues[i] = 1 - Mathf.InverseLerp( minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
+            if (counter % UPDATE_FREQ == 0) {
+                bool movement = false;
+                for (int i = 0; i < NUM_SLIDER; i++)
+                {
+                    float newValue = 1 - Mathf.InverseLerp(minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
+                    if (Mathf.Abs(sliderValues[i] - newValue) > MOVEMENT_THRESHOLD)
+                    {
+                        movement = true;
+                    }
 
-                //Debug.Log(sliderValues[i]);
-                sliders[i].value = sliderValues[i];
+                    sliderValues[i] = newValue;
+
+                    //Debug.Log(sliderValues[i]);
+                    sliders[i].value = sliderValues[i];
+                }
+                if (movement)
+                    UDPSender.SendUDPStringASCII("127.0.0.1", senderPort, "movement");
             }
+            counter++;
         }
     }
 
