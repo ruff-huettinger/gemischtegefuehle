@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour {
 
     const int NUM_SLIDER = 14;
     public float[] sliderValues = new float[NUM_SLIDER];
+    public float[] sliderMoveValues = new float[NUM_SLIDER];
     Slider[] sliders = new Slider[NUM_SLIDER];
     float minSensorValue = 0;
     float maxSensorValue = 5;
@@ -36,6 +37,7 @@ public class InputManager : MonoBehaviour {
         {
             sliders[i] = GameObject.Find("Slider (" + (i + 1) + ")").GetComponent<Slider>();
             sliderValues[i] = sliders[i].value;
+            sliderMoveValues[i] = sliders[i].value;
         }
     }
 	
@@ -47,9 +49,10 @@ public class InputManager : MonoBehaviour {
                 for (int i = 0; i < NUM_SLIDER; i++)
                 {
                     float newValue = 1 - Mathf.InverseLerp(minSensorValue, maxSensorValue, usbAD.GetAnalogIn(i));
-                    if (Mathf.Abs(sliderValues[i] - newValue) > MOVEMENT_THRESHOLD)
+                    if (Mathf.Abs(sliderMoveValues[i] - newValue) > MOVEMENT_THRESHOLD)
                     {
                         movement = true;
+                        sliderMoveValues[i] = newValue;
                     }
 
                     sliderValues[i] = newValue;
