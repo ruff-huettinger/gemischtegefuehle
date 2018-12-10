@@ -21,8 +21,8 @@ public class GemgefBackround : MonoBehaviour {
         offsets = new Vector2[speeds.Length];
     }
 
-
-
+    public float test;
+    Color col;
     // Update is called once per frame
     void Update () {
 
@@ -35,10 +35,14 @@ public class GemgefBackround : MonoBehaviour {
         materialFront.SetTextureOffset("_DetailAlbedoMap", offsets[1]);
         materialBack.SetTextureOffset("_DetailAlbedoMap", offsets[1]);
 
-        Color col = materialFront.GetColor("_Color");
-        float value = Mathf.Lerp(pars.SL008Transparenz, col.a, pars.smoothFactor0to1);
-        col = Color.Lerp(Color.HSVToRGB(pars.SL001HHG, pars.SL001SHG, pars.SL001BHG*3), col, pars.smoothFactor0to1);
+        col = materialFront.GetColor("_Color");
+        
+        float value = BenjasMath.mapSteps(pars.SL008Transparenz, pars.stepsSL008);
+        value = Mathf.Lerp(value, col.a, pars.smoothFactor0to1);
+        col = Color.Lerp(Color.HSVToRGB(pars.SL001HHG, pars.SL001SHG, pars.SL001BHG * 3), col, pars.smoothFactor0to1);
         col.a = value;
+
+        test = value;
         materialFront.SetColor("_Color", col);
         col.a = 1;
         materialBack.SetColor("_Color", col);
@@ -57,8 +61,6 @@ public class GemgefBackround : MonoBehaviour {
         value = BenjasMath.mapSteps(pars.SL002KontrHG, new float[] { 0.3f, 0.5f, 0.7f }, new float[] { 0.1f, 0.9f, 0.25f });
         materialFront.SetFloat("_pickTexture", value);
         materialBack.SetFloat("_pickTexture", value);
-
-
     }
     public string info = "";
 }

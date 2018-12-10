@@ -67,9 +67,11 @@
 			fixed4 col = tex2D(_MainTex, i.uv)*(1-_pickTexture) + tex2D(_DetailAlbedoMap, scaled_uv)*_pickTexture;
 			col.g = col.r;
 			col.b = col.r;
+			float a = col.a;
 			//col = col * (_lowContrast * _Color + _highContrast * _lowContrast * _Color  - 0.5*_highContrast * _lowContrast *_Color) + _Color - _lowContrast * _Color;
 			col = col*(1+_highContrast)-0.5*_highContrast;
 			col = (col * _lowContrast) + 1 - _lowContrast;
+			col.a = 1;
 			col *= _Color;
 			return col;
 		}

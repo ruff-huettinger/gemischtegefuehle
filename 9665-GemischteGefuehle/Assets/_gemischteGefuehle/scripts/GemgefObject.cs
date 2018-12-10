@@ -66,8 +66,7 @@ public class GemgefObject : MonoBehaviour {
     [Header("info - dont touch")]
     public float rad;
     public Vector3 offset = new Vector3();
-    public float speedU;
-    public float speedV;
+    public Vector2 swing;
     public float speedRot = 0;
     public Vector3 floating = new Vector2();
     Vector3 repeatDistance = new Vector3(40, 0, 60);
@@ -77,7 +76,7 @@ public class GemgefObject : MonoBehaviour {
         //n is a value between 0 and 1, stating which object in the array it is
     {
         float SL006Teilung = Mathf.Clamp01(pars.SL006Teilung + 0.001f);
-        float speed = BenjasMath.mapSteps(pars.SL010Aggregatzustand, new float[] { 0, .5f, 1 }, new float[] { .1f, 1.5f, .3f });
+        float speed = BenjasMath.map(SL006Teilung, 0.8f, 1f, 0, 0.5f) + BenjasMath.mapSteps(pars.SL010Aggregatzustand, new float[] { 0, .5f, 1 }, new float[] { .0f, 1.5f, .3f });
         if (n==0)
         {
             //scale the center up a bit while not parted
@@ -89,16 +88,11 @@ public class GemgefObject : MonoBehaviour {
             float twoPI = 2 * Mathf.PI;
 
 
-
-
             // now we add the movement depending on time and position
-
-            // put in the random factor
-
             
             // calculate the speed and magnitude
-            speedU = speed *                           BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 0  });
-            speedV = speed *                           BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 1  });
+            swing.x =   BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 0  });
+            swing.y =  BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  0, 1, 1, 1  });
 
             speedRot -= .1f * Time.deltaTime * speed * BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] {  0, 0,  1, 1, 0, 0 });
             if (speedRot < 0) speedRot += twoPI;
@@ -110,36 +104,32 @@ public class GemgefObject : MonoBehaviour {
             // calculate rotational position, depending on speedRot and SL007
 
             // influence of pattern
+            
             //horozontal deflection from center
             float lerpHor = BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] { 0,0, 1, 1, 1,1 });
+            
             //vertical deflection from center
             float lerpVer = BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] { 0,0, 1, 1, 1,1 });
-            //second pattern Amplitude
-            float ampVer = BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] { 0,0, 0, 0, 0 ,0});
-            float ampHor = BenjasMath.mapSteps(pars.SL007Muster, new float[] { 0, .1f, .3f, .55f, .8f, 0 }, new float[] { 0,0, 0, 0, 0 ,0});
-            //second pattern frequency
-            float secondPattern = pars.maxspread.y *  Mathf.Sin(rad *6 + Mathf.PI/2);
-            Vector3 symmetrie = new Vector3(Mathf.Lerp(randomBase.x , 1, lerpHor),
-                                            Mathf.Lerp(randomBase.y , 1, lerpVer),
-                                            Mathf.Lerp(randomBase.x , 1, lerpHor));
 
-
+            // lerp between random and symmetrical
+            Vector3 symmetrie = new Vector3(Mathf.Lerp(randomBase.x, 1, lerpHor),
+                                            Mathf.Lerp(randomBase.y, 1, lerpVer),
+                                            Mathf.Lerp(randomBase.x, 1, lerpHor)
+                                            );
 
             //modifie transform
 
             //Scale
-            float scalefactor = SL006Teilung * Mathf.Lerp(1, randomBase.y, 1 - 5 * pars.SL007Muster);
+            float scalefactor = BenjasMath.map(SL006Teilung, 0.1f, 0.8f, 0, 1) * Mathf.Lerp(1, randomBase.y, 1 - 5 * pars.SL007Muster);
             scalefactor = Mathf.Lerp(scalefactor, randomBase.z, pars.SL009Varianz);
             trafo.localScale = Vector3.Lerp(scale * scalefactor, trafo.localScale, smooth);
 
             //basic position depending on SL007 pattern
             Vector3 pos = new Vector3();
             
-            //circular pattern
-            pos.x = (pars.maxspread.x + secondPattern * ampHor) * Mathf.Sin(rad + speedRot)  * symmetrie.x;
-            pos.z = (pars.maxspread.z + secondPattern * ampHor) * Mathf.Cos(rad + speedRot)  * symmetrie.z;
-            //vertical pattern
-            pos.y = secondPattern * ampVer * symmetrie.y;
+            //circular rotation
+            pos.x = (pars.maxspread.x ) * Mathf.Sin(rad + speedRot)  * symmetrie.x;
+            pos.z = (pars.maxspread.z ) * Mathf.Cos(rad + speedRot)  * symmetrie.z;
 
             //makes movement without SL007 more random
             pos *= Mathf.Clamp01(SL006Teilung * 1.5f);
@@ -151,15 +141,16 @@ public class GemgefObject : MonoBehaviour {
             // first movement pattern - swinging in y and in xz
 
             offset = pars.maxspread * relativeDistance;
+            float speedXtime = speed * Time.time;
 
-            offset.x *= .2f *Mathf.Sin(rad) * speedU *  symmetrie.x * Mathf.Cos( symmetrie.x * speedU  * Time.time + n * 4* twoPI);
-            offset.y *= .5f *                speedV *  symmetrie.y * Mathf.Sin( symmetrie.y * speedV  * Time.time + n * 4* twoPI);
-            offset.z *= .2f *Mathf.Cos(rad) * speedU *  symmetrie.z * Mathf.Cos( symmetrie.x * speedU  * Time.time + n * 4* twoPI);
+            offset.x *= .2f *Mathf.Sin(rad) *  swing.x *  symmetrie.x * Mathf.Sin( symmetrie.x * swing.x * speedXtime + n * 4* twoPI);
+            offset.y *= .5f *                swing.y *  symmetrie.y * Mathf.Cos( symmetrie.y * swing.y  * speedXtime + n * 4* twoPI);
+            offset.z *= .2f *Mathf.Cos(rad) * swing.x *  symmetrie.z * Mathf.Cos( symmetrie.x * swing.x  * speedXtime + n * 4* twoPI);
             pos += offset;
 
             // second movement pattern - linear floating
 
-            if (pars.SL007Muster > .3f)
+            if (pars.SL007Muster > .3f || pars.SL006Teilung <.03f || pars.SL010Aggregatzustand < .2f)
             {
                 //no floating, set float 0, smoothing will do the movement
                 floating = new Vector3();
@@ -188,14 +179,18 @@ public class GemgefObject : MonoBehaviour {
                     pos.z += offset.z;
                 }
             }
+            else
+            {
+
+            }
             
             trafo.localPosition = pos;
         }
         trafo.Rotate(10*randomBase * speed * Time.deltaTime);
     }
-    
 
 
+    public Vector3 test;
 
 
 

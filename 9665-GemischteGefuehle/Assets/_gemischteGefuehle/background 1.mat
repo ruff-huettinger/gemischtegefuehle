@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: background 1
   m_Shader: {fileID: 4800000, guid: 8884ed70cffbd574786409cd6e7614ba, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _DETAIL_MULX2 _NORMALMAP
+  m_ShaderKeywords: _ALPHABLEND_ON _DETAIL_MULX2 _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,7 +25,7 @@ Material:
     - _DetailAlbedoMap:
         m_Texture: {fileID: 2800000, guid: 8fc65bd41cbf3d741a804ba3bcda7e2b, type: 3}
         m_Scale: {x: 0.83, y: 1.01}
-        m_Offset: {x: 4.39, y: 0}
+        m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -44,8 +44,8 @@ Material:
         m_Offset: {x: 2.03, y: 0.92}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 62aadfa9900796d409113f2d552719f0, type: 3}
-        m_Scale: {x: 0.78, y: 0.75}
-        m_Offset: {x: 2.03, y: 0.92}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -81,6 +81,6 @@ Material:
     - _lowContrast: 1
     - _pickTexture: 0.245
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}

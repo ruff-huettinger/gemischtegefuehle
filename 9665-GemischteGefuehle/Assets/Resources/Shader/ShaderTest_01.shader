@@ -232,7 +232,7 @@
 			sum.rgb += a * lightColor / exp(lDist*lDist*lDist*.08) / 30.;
 
 			if (d<h) {
-				td += (1. - td)*(h - d) + .005;  // accumulate density
+				td += (1. - td)*(h - d) + .007;  // accumulate density
 				sum.rgb += sum.a * sum.rgb * .25 / lDist;  // emission
 				sum += (1. - sum.a)*.05*td*a;  // uniform scale density + alpha blend in contribution
 			}

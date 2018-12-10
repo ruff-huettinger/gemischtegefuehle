@@ -115,11 +115,11 @@ public class GameManager : MonoBehaviour {
                 pars.SL004KontrVG = Mathf.Clamp01(value); break;
 
             case 8:
-                pars.SL005Fragmentierung = Mathf.Clamp01(value); break;
+                pars.SL007Muster = Mathf.Clamp01(value); break;
             case 9:
                 pars.SL006Teilung = Mathf.Clamp01(value); break;
             case 10:
-                pars.SL007Muster = Mathf.Clamp01(value); break;
+                pars.SL005Fragmentierung = Mathf.Clamp01(value); break;
             case 11:
                 pars.SL008Transparenz = Mathf.Clamp01(value); break;
             case 12:

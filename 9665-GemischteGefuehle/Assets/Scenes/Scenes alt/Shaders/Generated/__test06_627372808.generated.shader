@@ -15,12 +15,12 @@
   This shader was automatically generated from
   Raymarching Toolkit\Assets\Shaders\RaymarchTemplate.shader
   
-  for Raymarcher named 'Raymarcher' in scene '9665-GemischteGefuehle'.
+  for Raymarcher named 'Raymarcher' in scene '_test06'.
 
 */
 
 
-Shader "Hidden/_9665-GemischteGefuehle_1015510448.generated"
+Shader "Hidden/__test06_627372808.generated"
 {
 
 SubShader
@@ -53,9 +53,10 @@ CGPROGRAM
 
 // #define DEBUG_STEPS 1
 // #define DEBUG_MATERIALS 1
-// #define AO_ENABLED 1
+#define AO_ENABLED 1
 // #define FOG_ENABLED 1
-// #define FADE_TO_SKYBOX 1
+#define FADE_TO_SKYBOX 1
+uniform float FadeToSkyboxDistance;
 
 #ifdef _RAYMARCHING_CGINC
 #error "Already included Raymarching.cginc"
@@ -1260,22 +1261,16 @@ float fersertWaves(float3 p, float height) {
 }
 
 // Light Sun
-uniform float4 Sun_963129566PosAndRange;
-uniform float4 Sun_963129566ColorAndIntensity;
-uniform float3 Sun_963129566Direction;
-uniform float Sun_963129566Penumbra;
-uniform int Sun_963129566ShadowSteps;
-// Light Sun (1)
-uniform float4 Sun1_2650173033PosAndRange;
-uniform float4 Sun1_2650173033ColorAndIntensity;
-uniform float3 Sun1_2650173033Direction;
-uniform float Sun1_2650173033Penumbra;
-uniform int Sun1_2650173033ShadowSteps;
+uniform float4 Sun_2837672978PosAndRange;
+uniform float4 Sun_2837672978ColorAndIntensity;
+uniform float3 Sun_2837672978Direction;
+uniform float Sun_2837672978Penumbra;
+uniform int Sun_2837672978ShadowSteps;
 
 // UNIFORMS AND FUNCTIONS
-uniform float3 x_821967060_86f1660c_offset;
-uniform float x_821967060_86f1660c_angle;
-uniform float3 x_821967060_86f1660c_axis;
+uniform float3 x_2837672755_86f1660c_offset;
+uniform float x_2837672755_86f1660c_angle;
+uniform float3 x_2837672755_86f1660c_axis;
 float3 modifier_Twist(float3 p , float3 _INP_offset, float _INP_angle, float3 _INP_axis) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Modifiers/Twist.asset
     p -= _INP_offset.xyz;
@@ -1303,74 +1298,25 @@ float3 modifier_Twist(float3 p , float3 _INP_offset, float _INP_angle, float3 _I
     mp += _INP_offset.xyz;
     return mp;
 }
-uniform float4x4 _821967060Matrix;
-uniform float4x4 _821967060InverseMatrix;
-uniform float x_3429890895_1d59cc68_freq;
-uniform float x_3429890895_1d59cc68_intensity;
-uniform float x_3429890895_1d59cc68_speed;
-uniform float x_721210507_1d59cc68_freq;
-uniform float x_721210507_1d59cc68_intensity;
-uniform float x_721210507_1d59cc68_speed;
-uniform float x_3954134941_1d59cc68_freq;
-uniform float x_3954134941_1d59cc68_intensity;
-uniform float x_3954134941_1d59cc68_speed;
-uniform float x_3954134943_1d59cc68_freq;
-uniform float x_3954134943_1d59cc68_intensity;
-uniform float x_3954134943_1d59cc68_speed;
-uniform float x_2374754544_1d59cc68_freq;
-uniform float x_2374754544_1d59cc68_intensity;
-uniform float x_2374754544_1d59cc68_speed;
-uniform float x_1769698611_1d59cc68_freq;
-uniform float x_1769698611_1d59cc68_intensity;
-uniform float x_1769698611_1d59cc68_speed;
-uniform float x_1070792653_1d59cc68_freq;
-uniform float x_1070792653_1d59cc68_intensity;
-uniform float x_1070792653_1d59cc68_speed;
-uniform float x_1843603970_1d59cc68_freq;
-uniform float x_1843603970_1d59cc68_intensity;
-uniform float x_1843603970_1d59cc68_speed;
-uniform float x_963129558_1d59cc68_freq;
-uniform float x_963129558_1d59cc68_intensity;
-uniform float x_963129558_1d59cc68_speed;
+uniform float4x4 _2837672755Matrix;
+uniform float4x4 _2837672755InverseMatrix;
+uniform float x_1674873184_1d59cc68_freq;
+uniform float x_1674873184_1d59cc68_intensity;
+uniform float x_1674873184_1d59cc68_speed;
+uniform float x_3597187547_1d59cc68_freq;
+uniform float x_3597187547_1d59cc68_intensity;
+uniform float x_3597187547_1d59cc68_speed;
 float3 modifier_Displacement(float3 p , float _INP_freq, float _INP_intensity, float _INP_speed) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Modifiers/Displacement.asset
     float timeOffset = _Time.z * _INP_speed;
     return p + sin(_INP_freq*p.x + timeOffset)*sin(_INP_freq*p.y + 2.1f + timeOffset)*sin(_INP_freq*p.z + 4.2f + timeOffset)*_INP_intensity;
 }
-uniform float4x4 _3429890895Matrix;
-uniform float4x4 _3429890895InverseMatrix;
-uniform float4x4 _721210507Matrix;
-uniform float4x4 _721210507InverseMatrix;
-uniform float4x4 _3954134941Matrix;
-uniform float4x4 _3954134941InverseMatrix;
-uniform float4x4 _3954134943Matrix;
-uniform float4x4 _3954134943InverseMatrix;
-uniform float4x4 _2374754544Matrix;
-uniform float4x4 _2374754544InverseMatrix;
-uniform float4x4 _1769698611Matrix;
-uniform float4x4 _1769698611InverseMatrix;
-uniform float4x4 _1070792653Matrix;
-uniform float4x4 _1070792653InverseMatrix;
-uniform float4x4 _1843603970Matrix;
-uniform float4x4 _1843603970InverseMatrix;
-uniform float4x4 _963129558Matrix;
-uniform float4x4 _963129558InverseMatrix;
-uniform float x_3954134938_7f5e1bd4_separation;
-uniform float x_3954134938_7f5e1bd4_intensity;
-uniform float x_3571053390_7f5e1bd4_separation;
-uniform float x_3571053390_7f5e1bd4_intensity;
-uniform float x_3712215888_7f5e1bd4_separation;
-uniform float x_3712215888_7f5e1bd4_intensity;
-uniform float x_2052023618_7f5e1bd4_separation;
-uniform float x_2052023618_7f5e1bd4_intensity;
-uniform float x_1070792623_7f5e1bd4_separation;
-uniform float x_1070792623_7f5e1bd4_intensity;
-uniform float x_2509010528_7f5e1bd4_separation;
-uniform float x_2509010528_7f5e1bd4_intensity;
-uniform float x_3812972443_7f5e1bd4_separation;
-uniform float x_3812972443_7f5e1bd4_intensity;
-uniform float x_2690578985_7f5e1bd4_separation;
-uniform float x_2690578985_7f5e1bd4_intensity;
+uniform float4x4 _1674873184Matrix;
+uniform float4x4 _1674873184InverseMatrix;
+uniform float4x4 _3597187547Matrix;
+uniform float4x4 _3597187547InverseMatrix;
+uniform float x_2837672658_7f5e1bd4_separation;
+uniform float x_2837672658_7f5e1bd4_intensity;
 float3 modifier_Pixellate(float3 p , float _INP_separation, float _INP_intensity) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Modifiers/Pixellate.asset
     float3 w = p;
@@ -1380,257 +1326,79 @@ float3 modifier_Pixellate(float3 p , float _INP_separation, float _INP_intensity
     
     return lerp(p,w,_INP_intensity);
 }
-uniform float4x4 _3954134938Matrix;
-uniform float4x4 _3954134938InverseMatrix;
-uniform float4x4 _3571053390Matrix;
-uniform float4x4 _3571053390InverseMatrix;
-uniform float4x4 _3712215888Matrix;
-uniform float4x4 _3712215888InverseMatrix;
-uniform float4x4 _2052023618Matrix;
-uniform float4x4 _2052023618InverseMatrix;
-uniform float4x4 _1070792623Matrix;
-uniform float4x4 _1070792623InverseMatrix;
-uniform float4x4 _2509010528Matrix;
-uniform float4x4 _2509010528InverseMatrix;
-uniform float4x4 _3812972443Matrix;
-uniform float4x4 _3812972443InverseMatrix;
-uniform float4x4 _2690578985Matrix;
-uniform float4x4 _2690578985InverseMatrix;
-uniform float x_465736705_f5bf6f8d_height;
-uniform float x_465736705_f5bf6f8d_width;
-uniform float x_465736705_f5bf6f8d_radius;
-uniform float x_465736705_f5bf6f8d_morph;
-uniform float x_2791335534_f5bf6f8d_height;
-uniform float x_2791335534_f5bf6f8d_width;
-uniform float x_2791335534_f5bf6f8d_radius;
-uniform float x_2791335534_f5bf6f8d_morph;
-uniform float x_1030386704_f5bf6f8d_height;
-uniform float x_1030386704_f5bf6f8d_width;
-uniform float x_1030386704_f5bf6f8d_radius;
-uniform float x_1030386704_f5bf6f8d_morph;
-uniform float x_2408253973_f5bf6f8d_height;
-uniform float x_2408253973_f5bf6f8d_width;
-uniform float x_2408253973_f5bf6f8d_radius;
-uniform float x_2408253973_f5bf6f8d_morph;
-uniform float x_3429890890_f5bf6f8d_height;
-uniform float x_3429890890_f5bf6f8d_width;
-uniform float x_3429890890_f5bf6f8d_radius;
-uniform float x_3429890890_f5bf6f8d_morph;
-uniform float x_2650173024_f5bf6f8d_height;
-uniform float x_2650173024_f5bf6f8d_width;
-uniform float x_2650173024_f5bf6f8d_radius;
-uniform float x_2650173024_f5bf6f8d_morph;
-uniform float x_3671809946_f5bf6f8d_height;
-uniform float x_3671809946_f5bf6f8d_width;
-uniform float x_3671809946_f5bf6f8d_radius;
-uniform float x_3671809946_f5bf6f8d_morph;
-uniform float x_2589822426_f5bf6f8d_height;
-uniform float x_2589822426_f5bf6f8d_width;
-uniform float x_2589822426_f5bf6f8d_radius;
-uniform float x_2589822426_f5bf6f8d_morph;
-uniform float x_680804565_f5bf6f8d_height;
-uniform float x_680804565_f5bf6f8d_width;
-uniform float x_680804565_f5bf6f8d_radius;
-uniform float x_680804565_f5bf6f8d_morph;
-uniform float x_963129561_f5bf6f8d_height;
-uniform float x_963129561_f5bf6f8d_width;
-uniform float x_963129561_f5bf6f8d_radius;
-uniform float x_963129561_f5bf6f8d_morph;
-uniform float x_264223575_f5bf6f8d_height;
-uniform float x_264223575_f5bf6f8d_width;
-uniform float x_264223575_f5bf6f8d_radius;
-uniform float x_264223575_f5bf6f8d_morph;
-uniform float x_438885504_f5bf6f8d_height;
-uniform float x_438885504_f5bf6f8d_width;
-uniform float x_438885504_f5bf6f8d_radius;
-uniform float x_438885504_f5bf6f8d_morph;
-uniform float x_3537553951_f5bf6f8d_height;
-uniform float x_3537553951_f5bf6f8d_width;
-uniform float x_3537553951_f5bf6f8d_radius;
-uniform float x_3537553951_f5bf6f8d_morph;
-uniform float x_2589822427_f5bf6f8d_height;
-uniform float x_2589822427_f5bf6f8d_width;
-uniform float x_2589822427_f5bf6f8d_radius;
-uniform float x_2589822427_f5bf6f8d_morph;
-uniform float x_3893784310_f5bf6f8d_height;
-uniform float x_3893784310_f5bf6f8d_width;
-uniform float x_3893784310_f5bf6f8d_radius;
-uniform float x_3893784310_f5bf6f8d_morph;
-uniform float x_3712215887_f5bf6f8d_height;
-uniform float x_3712215887_f5bf6f8d_width;
-uniform float x_3712215887_f5bf6f8d_radius;
-uniform float x_3712215887_f5bf6f8d_morph;
-float object_HexSphere(float3 p , float _INP_height, float _INP_width, float _INP_radius, float _INP_morph) {
-    // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Objects/HexSphere.asset
+uniform float4x4 _2837672658Matrix;
+uniform float4x4 _2837672658InverseMatrix;
+uniform float x_2031103641_6492bb9b_radius;
+uniform float x_2614315259_6492bb9b_radius;
+float object_Sphere(float3 p , float _INP_radius) {
+    // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Objects/Sphere.asset
+    return length(p) - _INP_radius;
+}
+uniform float x_2434388457_6d32737e_height;
+uniform float x_2434388457_6d32737e_width;
+uniform float x_1451515846_6d32737e_height;
+uniform float x_1451515846_6d32737e_width;
+float object_HexPrism(float3 p , float _INP_height, float _INP_width) {
+    // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Objects/HexPrism.asset
     float3 q = abs(p);
-    //return s;
-    return lerp(max(q.z-_INP_height,max((q.x*0.866025+q.y*0.5),q.y)-_INP_width),
-    length(p) - _INP_radius,
-    _INP_morph);
+    
+    return max(q.z-_INP_height,max((q.x*0.866025+q.y*0.5),q.y)-_INP_width);
     
     // The MIT License
     // Copyright © 2013 Inigo Quilez
     // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
-// uniforms for HexSphere
-uniform float4x4 _465736705Matrix;
-uniform float _465736705MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _2791335534Matrix;
-uniform float _2791335534MinScale;
-// uniforms for HexSphere
-uniform float4x4 _1030386704Matrix;
-uniform float _1030386704MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _2408253973Matrix;
-uniform float _2408253973MinScale;
-// uniforms for HexSphere
-uniform float4x4 _3429890890Matrix;
-uniform float _3429890890MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _2650173024Matrix;
-uniform float _2650173024MinScale;
-// uniforms for HexSphere
-uniform float4x4 _3671809946Matrix;
-uniform float _3671809946MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _2589822426Matrix;
-uniform float _2589822426MinScale;
-// uniforms for HexSphere
-uniform float4x4 _680804565Matrix;
-uniform float _680804565MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _963129561Matrix;
-uniform float _963129561MinScale;
-// uniforms for HexSphere
-uniform float4x4 _264223575Matrix;
-uniform float _264223575MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _438885504Matrix;
-uniform float _438885504MinScale;
-// uniforms for HexSphere
-uniform float4x4 _3537553951Matrix;
-uniform float _3537553951MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _2589822427Matrix;
-uniform float _2589822427MinScale;
-// uniforms for HexSphere
-uniform float4x4 _3893784310Matrix;
-uniform float _3893784310MinScale;
-// uniforms for HexSphere (1)
-uniform float4x4 _3712215887Matrix;
-uniform float _3712215887MinScale;
-uniform float x_438885515_44192f17_intensity;
-float2 blend_Smooth(float2 a, float2 b , float _INP_intensity) {
-    // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Blends/Smooth.asset
-    float h = saturate(0.5 + 0.5*(b - a) / _INP_intensity);
-    return lerp(b, a, h) - _INP_intensity*h*(1 - h);
+// uniforms for Sphere
+uniform float4x4 _2031103641Matrix;
+uniform float _2031103641MinScale;
+// uniforms for HexPrism
+uniform float4x4 _2434388457Matrix;
+uniform float _2434388457MinScale;
+// uniforms for HexPrism
+uniform float4x4 _1451515846Matrix;
+uniform float _1451515846MinScale;
+// uniforms for Sphere
+uniform float4x4 _2614315259Matrix;
+uniform float _2614315259MinScale;
+uniform float x_3597187578_131749b2_whichObject;
+uniform float x_644946791_131749b2_whichObject;
+float2 blend_Morph(float2 a, float2 b , float _INP_whichObject) {
+    // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Blends/Morph.asset
+    return lerp(a, b, _INP_whichObject);
 }
-uniform float4 x_465736705_9b1ccc08_color;
-uniform float x_465736705_9b1ccc08_contrast;
-uniform float4 x_2791335534_9b1ccc08_color;
-uniform float x_2791335534_9b1ccc08_contrast;
-uniform float4 x_1030386704_9b1ccc08_color;
-uniform float x_1030386704_9b1ccc08_contrast;
-uniform float4 x_2408253973_9b1ccc08_color;
-uniform float x_2408253973_9b1ccc08_contrast;
-uniform float4 x_3429890890_9b1ccc08_color;
-uniform float x_3429890890_9b1ccc08_contrast;
-uniform float4 x_2650173024_9b1ccc08_color;
-uniform float x_2650173024_9b1ccc08_contrast;
-uniform float4 x_3671809946_9b1ccc08_color;
-uniform float x_3671809946_9b1ccc08_contrast;
-uniform float4 x_2589822426_9b1ccc08_color;
-uniform float x_2589822426_9b1ccc08_contrast;
-uniform float4 x_680804565_9b1ccc08_color;
-uniform float x_680804565_9b1ccc08_contrast;
-uniform float4 x_963129561_9b1ccc08_color;
-uniform float x_963129561_9b1ccc08_contrast;
-uniform float4 x_264223575_9b1ccc08_color;
-uniform float x_264223575_9b1ccc08_contrast;
-uniform float4 x_438885504_9b1ccc08_color;
-uniform float x_438885504_9b1ccc08_contrast;
-uniform float4 x_3537553951_9b1ccc08_color;
-uniform float x_3537553951_9b1ccc08_contrast;
-uniform float4 x_2589822427_9b1ccc08_color;
-uniform float x_2589822427_9b1ccc08_contrast;
-uniform float4 x_3893784310_9b1ccc08_color;
-uniform float x_3893784310_9b1ccc08_contrast;
-uniform float4 x_3712215887_9b1ccc08_color;
-uniform float x_3712215887_9b1ccc08_contrast;
-float3 material_GemGefObjectsbk(inout float3 normal, float3 p, float3 rayDir, float4 _INP_color, float _INP_contrast) {
+uniform float4 x_2031103641_9b1ccc08_color;
+uniform float x_2031103641_9b1ccc08_contrast;
+uniform float4 x_2434388457_9b1ccc08_color;
+uniform float x_2434388457_9b1ccc08_contrast;
+uniform float4 x_1451515846_9b1ccc08_color;
+uniform float x_1451515846_9b1ccc08_contrast;
+uniform float4 x_2614315259_9b1ccc08_color;
+uniform float x_2614315259_9b1ccc08_contrast;
+float4 material_GemGefObjectsbk(inout float3 normal, float3 p, float3 rayDir, float4 _INP_color, float _INP_contrast) {
     // Generated from Assets/Raymarching Toolkit/Assets/Snippets/Materials/GemGefObjects bk.asset
-    return _INP_color;
+    return _INP_color.rgba;
 }
-float3 MaterialFunc(float nf, inout float3 normal, float3 p, float3 rayDir, out float objectID)
+float4 MaterialFunc(float nf, inout float3 normal, float3 p, float3 rayDir, out float objectID)
 {
-    objectID = ceil(nf) / (float)16;
+    objectID = ceil(nf) / (float)4;
     [branch] if (nf <= 1) {
-    //    objectID = 0.0625;
-        return material_GemGefObjectsbk(normal, objPos(_465736705Matrix, p), rayDir, x_465736705_9b1ccc08_color, x_465736705_9b1ccc08_contrast);
+    //    objectID = 0.25;
+        return material_GemGefObjectsbk(normal, objPos(_2031103641Matrix, p), rayDir, x_2031103641_9b1ccc08_color, x_2031103641_9b1ccc08_contrast);
     }
     else if(nf <= 2) {
-    //    objectID = 0.125;
-        return material_GemGefObjectsbk(normal, objPos(_2791335534Matrix, p), rayDir, x_2791335534_9b1ccc08_color, x_2791335534_9b1ccc08_contrast);
+    //    objectID = 0.5;
+        return material_GemGefObjectsbk(normal, objPos(_2434388457Matrix, p), rayDir, x_2434388457_9b1ccc08_color, x_2434388457_9b1ccc08_contrast);
     }
     else if(nf <= 3) {
-    //    objectID = 0.1875;
-        return material_GemGefObjectsbk(normal, objPos(_1030386704Matrix, p), rayDir, x_1030386704_9b1ccc08_color, x_1030386704_9b1ccc08_contrast);
+    //    objectID = 0.75;
+        return material_GemGefObjectsbk(normal, objPos(_1451515846Matrix, p), rayDir, x_1451515846_9b1ccc08_color, x_1451515846_9b1ccc08_contrast);
     }
     else if(nf <= 4) {
-    //    objectID = 0.25;
-        return material_GemGefObjectsbk(normal, objPos(_2408253973Matrix, p), rayDir, x_2408253973_9b1ccc08_color, x_2408253973_9b1ccc08_contrast);
-    }
-    else if(nf <= 5) {
-    //    objectID = 0.3125;
-        return material_GemGefObjectsbk(normal, objPos(_3429890890Matrix, p), rayDir, x_3429890890_9b1ccc08_color, x_3429890890_9b1ccc08_contrast);
-    }
-    else if(nf <= 6) {
-    //    objectID = 0.375;
-        return material_GemGefObjectsbk(normal, objPos(_2650173024Matrix, p), rayDir, x_2650173024_9b1ccc08_color, x_2650173024_9b1ccc08_contrast);
-    }
-    else if(nf <= 7) {
-    //    objectID = 0.4375;
-        return material_GemGefObjectsbk(normal, objPos(_3671809946Matrix, p), rayDir, x_3671809946_9b1ccc08_color, x_3671809946_9b1ccc08_contrast);
-    }
-    else if(nf <= 8) {
-    //    objectID = 0.5;
-        return material_GemGefObjectsbk(normal, objPos(_2589822426Matrix, p), rayDir, x_2589822426_9b1ccc08_color, x_2589822426_9b1ccc08_contrast);
-    }
-    else if(nf <= 9) {
-    //    objectID = 0.5625;
-        return material_GemGefObjectsbk(normal, objPos(_680804565Matrix, p), rayDir, x_680804565_9b1ccc08_color, x_680804565_9b1ccc08_contrast);
-    }
-    else if(nf <= 10) {
-    //    objectID = 0.625;
-        return material_GemGefObjectsbk(normal, objPos(_963129561Matrix, p), rayDir, x_963129561_9b1ccc08_color, x_963129561_9b1ccc08_contrast);
-    }
-    else if(nf <= 11) {
-    //    objectID = 0.6875;
-        return material_GemGefObjectsbk(normal, objPos(_264223575Matrix, p), rayDir, x_264223575_9b1ccc08_color, x_264223575_9b1ccc08_contrast);
-    }
-    else if(nf <= 12) {
-    //    objectID = 0.75;
-        return material_GemGefObjectsbk(normal, objPos(_438885504Matrix, p), rayDir, x_438885504_9b1ccc08_color, x_438885504_9b1ccc08_contrast);
-    }
-    else if(nf <= 13) {
-    //    objectID = 0.8125;
-        return material_GemGefObjectsbk(normal, objPos(_3537553951Matrix, p), rayDir, x_3537553951_9b1ccc08_color, x_3537553951_9b1ccc08_contrast);
-    }
-    else if(nf <= 14) {
-    //    objectID = 0.875;
-        return material_GemGefObjectsbk(normal, objPos(_2589822427Matrix, p), rayDir, x_2589822427_9b1ccc08_color, x_2589822427_9b1ccc08_contrast);
-    }
-    else if(nf <= 15) {
-    //    objectID = 0.9375;
-        return material_GemGefObjectsbk(normal, objPos(_3893784310Matrix, p), rayDir, x_3893784310_9b1ccc08_color, x_3893784310_9b1ccc08_contrast);
-    }
-    else if(nf <= 16) {
     //    objectID = 1;
-        return material_GemGefObjectsbk(normal, objPos(_3712215887Matrix, p), rayDir, x_3712215887_9b1ccc08_color, x_3712215887_9b1ccc08_contrast);
+        return material_GemGefObjectsbk(normal, objPos(_2614315259Matrix, p), rayDir, x_2614315259_9b1ccc08_color, x_2614315259_9b1ccc08_contrast);
     }
         objectID = 0;
-        return float3(1.0, 0.0, 1.0);
+        return float4(1.0, 0.0, 1.0, 1.0);
     }
 
 #define raymarch defaultRaymarch
@@ -1639,41 +1407,15 @@ float2 map(float3 p) {
 	float2 result = float2(1.0, 0.0);
 	
 {
-    float3 p_821967060 = objPos(_821967060InverseMatrix, modifier_Twist(objPos(_821967060Matrix, p), x_821967060_86f1660c_offset, x_821967060_86f1660c_angle, x_821967060_86f1660c_axis));
-    float3 p_3429890895 = objPos(_3429890895InverseMatrix, modifier_Displacement(objPos(_3429890895Matrix, p_821967060), x_3429890895_1d59cc68_freq, x_3429890895_1d59cc68_intensity, x_3429890895_1d59cc68_speed));
-    float3 p_3954134938 = objPos(_3954134938InverseMatrix, modifier_Pixellate(objPos(_3954134938Matrix, p_3429890895), x_3954134938_7f5e1bd4_separation, x_3954134938_7f5e1bd4_intensity));
-    float3 p_721210507 = objPos(_721210507InverseMatrix, modifier_Displacement(objPos(_721210507Matrix, p_3954134938), x_721210507_1d59cc68_freq, x_721210507_1d59cc68_intensity, x_721210507_1d59cc68_speed));
-    float _465736705Distance = object_HexSphere(objPos(_465736705Matrix, p_721210507), x_465736705_f5bf6f8d_height, x_465736705_f5bf6f8d_width, x_465736705_f5bf6f8d_radius, x_465736705_f5bf6f8d_morph) * _465736705MinScale;
-    float _2791335534Distance = object_HexSphere(objPos(_2791335534Matrix, p_721210507), x_2791335534_f5bf6f8d_height, x_2791335534_f5bf6f8d_width, x_2791335534_f5bf6f8d_radius, x_2791335534_f5bf6f8d_morph) * _2791335534MinScale;
-    float3 p_3571053390 = objPos(_3571053390InverseMatrix, modifier_Pixellate(objPos(_3571053390Matrix, p_3429890895), x_3571053390_7f5e1bd4_separation, x_3571053390_7f5e1bd4_intensity));
-    float3 p_3954134941 = objPos(_3954134941InverseMatrix, modifier_Displacement(objPos(_3954134941Matrix, p_3571053390), x_3954134941_1d59cc68_freq, x_3954134941_1d59cc68_intensity, x_3954134941_1d59cc68_speed));
-    float _1030386704Distance = object_HexSphere(objPos(_1030386704Matrix, p_3954134941), x_1030386704_f5bf6f8d_height, x_1030386704_f5bf6f8d_width, x_1030386704_f5bf6f8d_radius, x_1030386704_f5bf6f8d_morph) * _1030386704MinScale;
-    float _2408253973Distance = object_HexSphere(objPos(_2408253973Matrix, p_3954134941), x_2408253973_f5bf6f8d_height, x_2408253973_f5bf6f8d_width, x_2408253973_f5bf6f8d_radius, x_2408253973_f5bf6f8d_morph) * _2408253973MinScale;
-    float3 p_3712215888 = objPos(_3712215888InverseMatrix, modifier_Pixellate(objPos(_3712215888Matrix, p_3429890895), x_3712215888_7f5e1bd4_separation, x_3712215888_7f5e1bd4_intensity));
-    float3 p_3954134943 = objPos(_3954134943InverseMatrix, modifier_Displacement(objPos(_3954134943Matrix, p_3712215888), x_3954134943_1d59cc68_freq, x_3954134943_1d59cc68_intensity, x_3954134943_1d59cc68_speed));
-    float _3429890890Distance = object_HexSphere(objPos(_3429890890Matrix, p_3954134943), x_3429890890_f5bf6f8d_height, x_3429890890_f5bf6f8d_width, x_3429890890_f5bf6f8d_radius, x_3429890890_f5bf6f8d_morph) * _3429890890MinScale;
-    float _2650173024Distance = object_HexSphere(objPos(_2650173024Matrix, p_3954134943), x_2650173024_f5bf6f8d_height, x_2650173024_f5bf6f8d_width, x_2650173024_f5bf6f8d_radius, x_2650173024_f5bf6f8d_morph) * _2650173024MinScale;
-    float3 p_2052023618 = objPos(_2052023618InverseMatrix, modifier_Pixellate(objPos(_2052023618Matrix, p_3429890895), x_2052023618_7f5e1bd4_separation, x_2052023618_7f5e1bd4_intensity));
-    float3 p_2374754544 = objPos(_2374754544InverseMatrix, modifier_Displacement(objPos(_2374754544Matrix, p_2052023618), x_2374754544_1d59cc68_freq, x_2374754544_1d59cc68_intensity, x_2374754544_1d59cc68_speed));
-    float _3671809946Distance = object_HexSphere(objPos(_3671809946Matrix, p_2374754544), x_3671809946_f5bf6f8d_height, x_3671809946_f5bf6f8d_width, x_3671809946_f5bf6f8d_radius, x_3671809946_f5bf6f8d_morph) * _3671809946MinScale;
-    float _2589822426Distance = object_HexSphere(objPos(_2589822426Matrix, p_2374754544), x_2589822426_f5bf6f8d_height, x_2589822426_f5bf6f8d_width, x_2589822426_f5bf6f8d_radius, x_2589822426_f5bf6f8d_morph) * _2589822426MinScale;
-    float3 p_1070792623 = objPos(_1070792623InverseMatrix, modifier_Pixellate(objPos(_1070792623Matrix, p_3429890895), x_1070792623_7f5e1bd4_separation, x_1070792623_7f5e1bd4_intensity));
-    float3 p_1769698611 = objPos(_1769698611InverseMatrix, modifier_Displacement(objPos(_1769698611Matrix, p_1070792623), x_1769698611_1d59cc68_freq, x_1769698611_1d59cc68_intensity, x_1769698611_1d59cc68_speed));
-    float _680804565Distance = object_HexSphere(objPos(_680804565Matrix, p_1769698611), x_680804565_f5bf6f8d_height, x_680804565_f5bf6f8d_width, x_680804565_f5bf6f8d_radius, x_680804565_f5bf6f8d_morph) * _680804565MinScale;
-    float _963129561Distance = object_HexSphere(objPos(_963129561Matrix, p_1769698611), x_963129561_f5bf6f8d_height, x_963129561_f5bf6f8d_width, x_963129561_f5bf6f8d_radius, x_963129561_f5bf6f8d_morph) * _963129561MinScale;
-    float3 p_2509010528 = objPos(_2509010528InverseMatrix, modifier_Pixellate(objPos(_2509010528Matrix, p_3429890895), x_2509010528_7f5e1bd4_separation, x_2509010528_7f5e1bd4_intensity));
-    float3 p_1070792653 = objPos(_1070792653InverseMatrix, modifier_Displacement(objPos(_1070792653Matrix, p_2509010528), x_1070792653_1d59cc68_freq, x_1070792653_1d59cc68_intensity, x_1070792653_1d59cc68_speed));
-    float _264223575Distance = object_HexSphere(objPos(_264223575Matrix, p_1070792653), x_264223575_f5bf6f8d_height, x_264223575_f5bf6f8d_width, x_264223575_f5bf6f8d_radius, x_264223575_f5bf6f8d_morph) * _264223575MinScale;
-    float _438885504Distance = object_HexSphere(objPos(_438885504Matrix, p_1070792653), x_438885504_f5bf6f8d_height, x_438885504_f5bf6f8d_width, x_438885504_f5bf6f8d_radius, x_438885504_f5bf6f8d_morph) * _438885504MinScale;
-    float3 p_3812972443 = objPos(_3812972443InverseMatrix, modifier_Pixellate(objPos(_3812972443Matrix, p_3429890895), x_3812972443_7f5e1bd4_separation, x_3812972443_7f5e1bd4_intensity));
-    float3 p_1843603970 = objPos(_1843603970InverseMatrix, modifier_Displacement(objPos(_1843603970Matrix, p_3812972443), x_1843603970_1d59cc68_freq, x_1843603970_1d59cc68_intensity, x_1843603970_1d59cc68_speed));
-    float _3537553951Distance = object_HexSphere(objPos(_3537553951Matrix, p_1843603970), x_3537553951_f5bf6f8d_height, x_3537553951_f5bf6f8d_width, x_3537553951_f5bf6f8d_radius, x_3537553951_f5bf6f8d_morph) * _3537553951MinScale;
-    float _2589822427Distance = object_HexSphere(objPos(_2589822427Matrix, p_1843603970), x_2589822427_f5bf6f8d_height, x_2589822427_f5bf6f8d_width, x_2589822427_f5bf6f8d_radius, x_2589822427_f5bf6f8d_morph) * _2589822427MinScale;
-    float3 p_2690578985 = objPos(_2690578985InverseMatrix, modifier_Pixellate(objPos(_2690578985Matrix, p_3429890895), x_2690578985_7f5e1bd4_separation, x_2690578985_7f5e1bd4_intensity));
-    float3 p_963129558 = objPos(_963129558InverseMatrix, modifier_Displacement(objPos(_963129558Matrix, p_2690578985), x_963129558_1d59cc68_freq, x_963129558_1d59cc68_intensity, x_963129558_1d59cc68_speed));
-    float _3893784310Distance = object_HexSphere(objPos(_3893784310Matrix, p_963129558), x_3893784310_f5bf6f8d_height, x_3893784310_f5bf6f8d_width, x_3893784310_f5bf6f8d_radius, x_3893784310_f5bf6f8d_morph) * _3893784310MinScale;
-    float _3712215887Distance = object_HexSphere(objPos(_3712215887Matrix, p_963129558), x_3712215887_f5bf6f8d_height, x_3712215887_f5bf6f8d_width, x_3712215887_f5bf6f8d_radius, x_3712215887_f5bf6f8d_morph) * _3712215887MinScale;
-    result = blend_Smooth(blend_Smooth(blend_Smooth(blend_Smooth(blend_Smooth(blend_Smooth(blend_Smooth(opU(float2(_465736705Distance, /*material ID*/0.5), float2(_2791335534Distance, /*material ID*/1.5)), opU(float2(_1030386704Distance, /*material ID*/2.5), float2(_2408253973Distance, /*material ID*/3.5)), x_438885515_44192f17_intensity), opU(float2(_3429890890Distance, /*material ID*/4.5), float2(_2650173024Distance, /*material ID*/5.5)), x_438885515_44192f17_intensity), opU(float2(_3671809946Distance, /*material ID*/6.5), float2(_2589822426Distance, /*material ID*/7.5)), x_438885515_44192f17_intensity), opU(float2(_680804565Distance, /*material ID*/8.5), float2(_963129561Distance, /*material ID*/9.5)), x_438885515_44192f17_intensity), opU(float2(_264223575Distance, /*material ID*/10.5), float2(_438885504Distance, /*material ID*/11.5)), x_438885515_44192f17_intensity), opU(float2(_3537553951Distance, /*material ID*/12.5), float2(_2589822427Distance, /*material ID*/13.5)), x_438885515_44192f17_intensity), opU(float2(_3893784310Distance, /*material ID*/14.5), float2(_3712215887Distance, /*material ID*/15.5)), x_438885515_44192f17_intensity);
+    float3 p_2837672755 = objPos(_2837672755InverseMatrix, modifier_Twist(objPos(_2837672755Matrix, p), x_2837672755_86f1660c_offset, x_2837672755_86f1660c_angle, x_2837672755_86f1660c_axis));
+    float3 p_1674873184 = objPos(_1674873184InverseMatrix, modifier_Displacement(objPos(_1674873184Matrix, p_2837672755), x_1674873184_1d59cc68_freq, x_1674873184_1d59cc68_intensity, x_1674873184_1d59cc68_speed));
+    float3 p_2837672658 = objPos(_2837672658InverseMatrix, modifier_Pixellate(objPos(_2837672658Matrix, p_1674873184), x_2837672658_7f5e1bd4_separation, x_2837672658_7f5e1bd4_intensity));
+    float3 p_3597187547 = objPos(_3597187547InverseMatrix, modifier_Displacement(objPos(_3597187547Matrix, p_2837672658), x_3597187547_1d59cc68_freq, x_3597187547_1d59cc68_intensity, x_3597187547_1d59cc68_speed));
+    float _2031103641Distance = object_Sphere(objPos(_2031103641Matrix, p_3597187547), x_2031103641_6492bb9b_radius) * _2031103641MinScale;
+    float _2434388457Distance = object_HexPrism(objPos(_2434388457Matrix, p_3597187547), x_2434388457_6d32737e_height, x_2434388457_6d32737e_width) * _2434388457MinScale;
+    float _1451515846Distance = object_HexPrism(objPos(_1451515846Matrix, p_3597187547), x_1451515846_6d32737e_height, x_1451515846_6d32737e_width) * _1451515846MinScale;
+    float _2614315259Distance = object_Sphere(objPos(_2614315259Matrix, p_3597187547), x_2614315259_6492bb9b_radius) * _2614315259MinScale;
+    result = opU(blend_Morph(float2(_2031103641Distance, /*material ID*/0.5), float2(_2434388457Distance, /*material ID*/1.5), x_3597187578_131749b2_whichObject), blend_Morph(float2(_1451515846Distance, /*material ID*/2.5), float2(_2614315259Distance, /*material ID*/3.5), x_644946791_131749b2_whichObject));
     }
 	return result;
 }
@@ -1688,17 +1430,10 @@ float3 getLights(in float3 color, in float3 pos, in float3 normal) {
 	
 {
 LightInfo light;
-light.posAndRange = Sun_963129566PosAndRange;
-light.colorAndIntensity = Sun_963129566ColorAndIntensity;
-light.direction = Sun_963129566Direction;
-lightValue += getDirectionalLight(input, light)* softshadow(input.pos, -light.direction, INFINITY, Sun_963129566Penumbra, Sun_963129566ShadowSteps);
-}
-{
-LightInfo light;
-light.posAndRange = Sun1_2650173033PosAndRange;
-light.colorAndIntensity = Sun1_2650173033ColorAndIntensity;
-light.direction = Sun1_2650173033Direction;
-lightValue += getDirectionalLight(input, light)* softshadow(input.pos, -light.direction, INFINITY, Sun1_2650173033Penumbra, Sun1_2650173033ShadowSteps);
+light.posAndRange = Sun_2837672978PosAndRange;
+light.colorAndIntensity = Sun_2837672978ColorAndIntensity;
+light.direction = Sun_2837672978Direction;
+lightValue += getDirectionalLight(input, light)* softshadow(input.pos, -light.direction, INFINITY, Sun_2837672978Penumbra, Sun_2837672978ShadowSteps);
 }
 	return lightValue;
 }
@@ -1744,23 +1479,23 @@ fixed4 defaultRaymarch(float3 ro, float3 rd, float s, inout float3 raypos, out f
 		float3 n = calcNormal(p);
 
 		// Then, we get the color of the world at that point, based on our material ids.
-		float3 color = MaterialFunc(d.y, n, p, rd, objectID);
+		float4 color = MaterialFunc(d.y, n, p, rd, objectID);
 		float3 light = getLights(color, p, n);
 
 		// The ambient color is applied.
-		color *= _AmbientColor.xyz;
+		color.rgb *= _AmbientColor.xyz;
 
 		// And lights are added.
-		color += light;
+		color.rgb += light;
 
 		// If enabled, darken with ambient occlusion.
 		#if AO_ENABLED
-		color *= ambientOcclusion(p, n);
+		color.rgb *= ambientOcclusion(p, n);
 		#endif
 
 		// If fog is enabled, lerp towards the fog color based on the distance.
 		#if FOG_ENABLED
-		color = lerp(color, FogColor, 1.0-exp2(-FogDensity * t * t));
+		color.rgb = lerp(color, FogColor, 1.0-exp2(-FogDensity * t * t));
 		#endif
 
 		// If fading to the skybox is enabled, reduce the alpha value of the output pizel.
@@ -1769,8 +1504,9 @@ fixed4 defaultRaymarch(float3 ro, float3 rd, float s, inout float3 raypos, out f
 		#else
 		float alpha = 1.0;
 		#endif
+		alpha *= color.a;
 
-		ret = fixed4(color, alpha);
+		ret = fixed4(color.rgb, alpha);
 	}
 
 	raypos = p;

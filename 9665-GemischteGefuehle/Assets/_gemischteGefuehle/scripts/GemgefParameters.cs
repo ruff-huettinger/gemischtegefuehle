@@ -29,11 +29,11 @@ public class GemgefParameters : MonoBehaviour {
     public float SL007Muster;
     [HideInInspector] public float[] stepsSL007 = new float[] { 0, .3f, .6f, 1 };
     public float SL008Transparenz;
-    [HideInInspector] public float[] stepsSL008 = new float[] { 0, 1 };
+     public float[] stepsSL008 = new float[] { 0, 0.8f };
     public float SL009Varianz;
     public float SL010Aggregatzustand;
     [HideInInspector] public float[] stepsSL010 = new float[] { 0, .6f, 1 };
-
+    [HideInInspector] public float[] inputBorders01 = new float[] { 0, 1 };
 
 
 
@@ -236,7 +236,7 @@ public class GemgefParameters : MonoBehaviour {
     */
     DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
             lense.focalLength = BenjasMath.map(SL004KontrVG, 0, .1f,  1.2f, 1.1f);
-            lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , 0, -10 );
+            lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , -1, -10 );
             lense.focalLength +=  BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 7f });
             lense.focalLength += Mathf.Pow(SL008Transparenz, 4)*4f;
             lense.focalLength = Mathf.Clamp(lense.focalLength, 0, 100);

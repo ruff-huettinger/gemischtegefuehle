@@ -348,6 +348,60 @@ public class smoothVector3{
         return Mathf.Clamp(map(value, minIn, maxIn, minOut, maxOut, false), minClamp, maxClamp);
     }
 
+    /// <summary>
+    /// maps from 0-1 to an array of output boarders, clamped
+    /// <para/> for example  
+    /// █  output boarders = {-1 , 0 , 10}
+    /// █  maps from -> to
+    /// █ 0.0 -> -1 
+    /// █ 0.1 -> -0.8
+    /// █ 0.2 -> -0.6
+    /// █ 0.3 -> -0.4
+    /// █ 0.4 -> -0.2
+    /// █ 0.5 -> 0
+    /// █ 0.6 -> 2
+    /// █ 0.7 -> 4
+    /// █ 0.8 -> 6
+    /// █ 0.9 -> 8
+    /// █ 1.0 -> 10 █
+    /// </summary>
+    /// <param name="inputValue"></param>
+    /// <param name="inputBoarders"></param>
+    /// <param name="outputBoarders"></param>
+    /// <returns></returns>
+    public static float mapSteps(float inputValue, float[] outputBoarders)
+    {
+        if (outputBoarders.Length == 0) return 0;
+        if (outputBoarders.Length == 1) return outputBoarders[0];
+        float[] inputBoarders = new float[outputBoarders.Length];
+        float fract = (float) 1f/(outputBoarders.Length-1);
+        for (int i=0; i< inputBoarders.Length;i++)            inputBoarders[i] = i * fract;
+        return mapSteps(inputValue, inputBoarders, outputBoarders);
+    }
+
+    /// <summary>
+    /// maps from an array of input boarders to an array of output boarders, clamped
+    /// if there are more input borders than output borders, the longer one will be ignored
+    /// <para/>   for example
+    /// █  input boarders = {0.0 , 0.5 , 1}
+    /// █  output boarders = {-1 , 0 , 10}
+    /// █  maps from -> to
+    /// █ 0.0 -> -1 
+    /// █ 0.1 -> -0.8
+    /// █ 0.2 -> -0.6
+    /// █ 0.3 -> -0.4
+    /// █ 0.4 -> -0.2
+    /// █ 0.5 -> 0
+    /// █ 0.6 -> 2
+    /// █ 0.7 -> 4
+    /// █ 0.8 -> 6
+    /// █ 0.9 -> 8
+    /// █ 1.0 -> 10 █
+    /// </summary>
+    /// <param name="inputValue"></param>
+    /// <param name="inputBoarders"></param>
+    /// <param name="outputBoarders"></param>
+    /// <returns></returns>
     public static float mapSteps(float inputValue, float[] inputBoarders, float[] outputBoarders)
     {
 
@@ -372,6 +426,11 @@ public class smoothVector3{
         return outputBoarders[inputBoarders.Length - 1];
     }
 
+    /// <summary>
+    /// makes sure angle is a number between 0 and 360
+    /// </summary>
+    /// <param name="Angle"></param>
+    /// <returns></returns>
     public static float keepAngle0to360(float Angle)
     {
         while(Angle<0)
@@ -381,6 +440,13 @@ public class smoothVector3{
         return Angle;
     }
 
+    /// <summary>
+    /// clamps the angle between values trying to find nearest boarder on 360°
+    /// </summary>
+    /// <param name="Angle"></param>
+    /// <param name="Min"></param>
+    /// <param name="Max"></param>
+    /// <returns></returns>
     public static float keepAngleBetween(float Angle, float Min, float Max)
     {
         float temp = Mathf.Lerp(Min, Max, 0.5f);
@@ -391,6 +457,15 @@ public class smoothVector3{
         return Angle;
     }
 
+    /// <summary>
+    /// tries to find an intersection between the two lines. 
+    /// returns center between linepoint1 and linepoint2 if the lines are parallel.
+    /// </summary>
+    /// <param name="linePoint1"></param>
+    /// <param name="lineVec1"></param>
+    /// <param name="linePoint2"></param>
+    /// <param name="lineVec2"></param>
+    /// <returns></returns>
     public static Vector3 ClosestPointToIntersect( Vector3 linePoint1, Vector3 lineVec1, Vector3 linePoint2, Vector3 lineVec2){
 
 		float a = Vector3.Dot(lineVec1, lineVec1);
