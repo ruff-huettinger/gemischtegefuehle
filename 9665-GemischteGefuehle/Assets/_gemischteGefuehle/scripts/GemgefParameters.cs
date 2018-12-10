@@ -29,7 +29,7 @@ public class GemgefParameters : MonoBehaviour {
     public float SL007Muster;
     [HideInInspector] public float[] stepsSL007 = new float[] { 0, .3f, .6f, 1 };
     public float SL008Transparenz;
-     public float[] stepsSL008 = new float[] { 0, 0.8f };
+    [HideInInspector] public float[] stepsSL008 = new float[] { 0, 0.8f };
     public float SL009Varianz;
     public float SL010Aggregatzustand;
     [HideInInspector] public float[] stepsSL010 = new float[] { 0, .6f, 1 };
