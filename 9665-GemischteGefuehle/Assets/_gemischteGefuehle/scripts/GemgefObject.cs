@@ -75,7 +75,7 @@ public class GemgefObject : MonoBehaviour {
     public void updateTransform()
         //n is a value between 0 and 1, stating which object in the array it is
     {
-        float SL006Teilung = Mathf.Clamp01(pars.SL006Teilung + 0.001f);
+        float SL006Teilung = Mathf.Clamp01(pars.SL006Teilung + 0.002f);
         float speed = BenjasMath.map(SL006Teilung, 0.8f, 1f, 0, 0.5f) + BenjasMath.mapSteps(pars.SL010Aggregatzustand, new float[] { 0, .5f, 1 }, new float[] { .0f, 1.5f, .3f });
         if (n==0)
         {
@@ -120,7 +120,7 @@ public class GemgefObject : MonoBehaviour {
             //modifie transform
 
             //Scale
-            float scalefactor = BenjasMath.map(SL006Teilung, 0.1f, 0.8f, 0, 1) * Mathf.Lerp(1, randomBase.y, 1 - 5 * pars.SL007Muster);
+            float scalefactor = BenjasMath.map(SL006Teilung, 0.1f, 0.8f, 0.001f, 1) * Mathf.Lerp(1, randomBase.y, 1 - 5 * pars.SL007Muster);
             scalefactor = Mathf.Lerp(scalefactor, randomBase.z, pars.SL009Varianz);
             trafo.localScale = Vector3.Lerp(scale * scalefactor, trafo.localScale, smooth);
 

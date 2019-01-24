@@ -43,11 +43,8 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
@@ -55,7 +52,21 @@ public class GameManager : MonoBehaviour {
         {
             toggleDebug();
         }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            cleanUp();
+        }
+
         updateAll();
+    }
+    public long totalMemoryUsedByProcess1;
+
+    /// <summary>
+    /// use this to prevent memory problems and unlocated adresses and stuff by resetting the evil parts
+    /// </summary>
+    public void cleanUp()
+    {
+        pars.cleanUp();
     }
 
     public void toggleDebug()

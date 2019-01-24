@@ -67,7 +67,7 @@ public class GemgefParameters : MonoBehaviour {
     GemgefObject[] Obj;
 
     public Camera cam;
-    PostProcessingProfile postpro;
+    PostProcessingBehaviour post;
     CameraFilterPack_Blur_Blurry blur;
 
     public Vector3[] randomBase;
@@ -82,10 +82,9 @@ public class GemgefParameters : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
-        postpro = cam.GetComponent<PostProcessingBehaviour>().profile;
-        postpro.colorGrading.enabled = true;
-        postpro.grain.enabled = true;
+        post = cam.GetComponent<PostProcessingBehaviour>();
+        post.profile.colorGrading.enabled = true;
+        post.profile.grain.enabled = true;
         blur = cam.GetComponent<CameraFilterPack_Blur_Blurry>();
 
         dispInt = new Modifier(displacement,"intensity");
@@ -145,7 +144,7 @@ public class GemgefParameters : MonoBehaviour {
         }
     }
 
-
+    
     public int fps = 60;
     public float ms = 0;
     float realFPS = 60;
@@ -159,7 +158,16 @@ public class GemgefParameters : MonoBehaviour {
             fps = (int)realFPS;
             ms = (deltaTime * 1000f);
         }
-        if (adjustQualityByFrametime)
+        memoryUsed = (((float)UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong()) / (1024f * 1024f));
+        if (restartAfterCleanup)
+        {
+            cleanUpRestart();
+        }
+        else if (memoryUsed > 999)
+        {
+            cleanUp();
+        }
+        else if (adjustQualityByFrametime)
         {
             if (realFPS < 13)
                 qualityScaling *= 0.90f;
@@ -189,12 +197,45 @@ public class GemgefParameters : MonoBehaviour {
         ray.ExtraAccuracy = Mathf.Clamp(rayValue * (.5f+.5f*qualityScaling),0.3f, 0.8f);
         }
 
+
         InfoText.text = (1 / deltaTime).ToString("N0") + " fps"
-                + "\n" + (deltaTime * 1000).ToString("N0") + " ms"
-                + "\n" + qualityScaling.ToString("N2") + " quality"
+                + " / " + (deltaTime * 1000).ToString("N0") + " ms"
+                + "\n" + memoryUsed.ToString("N2") + " MB Allocated memory"
+        + "\n" + "raymarching quality adjustments"
+                + "\n" + qualityScaling.ToString("N2") + "relative quality"
                 + "\n" + ray.Resolution.ToString("N2") + " resolution"
                 + "\n" + ray.Steps.ToString("N0") + " Steps"
                 + "\n" + ray.ExtraAccuracy.ToString("N2") + " Accuracy";
+
+    }
+
+    public float memoryUsed;
+
+    public void cleanUp()
+    {
+        Debug.Log("cleanup");
+        cam.cullingMask = 0 << 0;
+        post.profile.grain.enabled = false;
+        post.profile.antialiasing.enabled = false;
+        post.enabled = false;
+        blur.enabled = false;
+        ray.enabled = false;
+
+
+
+        restartAfterCleanup = true;
+    }
+    bool restartAfterCleanup = false;
+    public void cleanUpRestart()
+    {
+        Debug.Log("restart after cleanup");
+        cam.cullingMask = 99 << 0;
+        post.profile.grain.enabled = true;
+        post.profile.antialiasing.enabled = true;
+        post.enabled = true;
+        blur.enabled = true;
+        ray.enabled = true;
+        restartAfterCleanup = false;
     }
 
     // Update is called once per frame
@@ -220,21 +261,21 @@ public class GemgefParameters : MonoBehaviour {
 
             //brightness and Contrast
 
-            GrainModel.Settings grain = postpro.grain.settings;
+            GrainModel.Settings grain = post.profile.grain.settings;
             grain.intensity = BenjasMath.mapSteps(SL002KontrHG + SL004KontrVG, new float[] { 0, .1f, 1.9f, 2 }, new float[] { 1, 0,0, 2 });
             //grain.intensity += BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { .1f, 0, 1.5f });
-            postpro.grain.settings = grain;
+            post.profile.grain.settings = grain;
 
             ray.AmbientColor = Color.white * (1- SL004KontrVG);
             raymarchLight1.intensity = SL004KontrVG * 2;
             raymarchLight2.intensity = SL004KontrVG * 1;
             /*
-            ColorGradingModel.Settings grading = postpro.colorGrading.settings;
+            ColorGradingModel.Settings grading = post.profile.colorGrading.settings;
             grading.basic.contrast = BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { 0.1f, 0.2f, 1, 2, 2 });
             grading.basic.postExposure = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { -5, -4, 0, 10, 10 });
             grading.basic.saturation = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { 1.1f, 1f, 1, 1, .9f });
             grading.basic.saturation *= BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { .7f, .85f, 1, 1.2f, 1.4f });
-            postpro.colorGrading.settings = grading;
+            post.profile.colorGrading.settings = grading;
             */
 
 
@@ -247,7 +288,7 @@ public class GemgefParameters : MonoBehaviour {
             blur.Amount = Mathf.Clamp(blur.Amount, 0, 3f);
 
             /*
-            DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
+            DepthOfFieldModel.Settings lense = post.profile.depthOfField.settings;
                     lense.focalLength = BenjasMath.map(SL004KontrVG, 0, .1f,  1.2f, 1.1f);
                     lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , -1, -10 );
                     lense.focalLength +=  BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 7f });
@@ -255,7 +296,7 @@ public class GemgefParameters : MonoBehaviour {
                     lense.focalLength = Mathf.Clamp(lense.focalLength, 0, 100);
 
 
-                    postpro.depthOfField.settings = lense;
+                    post.profile.depthOfField.settings = lense;
                     */
         }
         
