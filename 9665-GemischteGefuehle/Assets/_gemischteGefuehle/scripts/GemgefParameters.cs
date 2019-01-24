@@ -29,7 +29,7 @@ public class GemgefParameters : MonoBehaviour {
     public float SL007Muster;
     [HideInInspector] public float[] stepsSL007 = new float[] { 0, .3f, .6f, 1 };
     public float SL008Transparenz;
-    [HideInInspector] public float[] stepsSL008 = new float[] { 0, 0.8f };
+    [HideInInspector] public float[] stepsSL008 = new float[] { 0.01f, .3f, .8f, 1.0f };
     public float SL009Varianz;
     public float SL010Aggregatzustand;
     [HideInInspector] public float[] stepsSL010 = new float[] { 0, .6f, 1 };
@@ -66,8 +66,9 @@ public class GemgefParameters : MonoBehaviour {
 
     GemgefObject[] Obj;
 
-    public PostProcessingBehaviour post;
+    public Camera cam;
     PostProcessingProfile postpro;
+    CameraFilterPack_Blur_Blurry blur;
 
     public Vector3[] randomBase;
     public bool overrideRandomBase = false;
@@ -82,9 +83,10 @@ public class GemgefParameters : MonoBehaviour {
     void Start()
     {
 
-        postpro = post.profile;
+        postpro = cam.GetComponent<PostProcessingBehaviour>().profile;
         postpro.colorGrading.enabled = true;
         postpro.grain.enabled = true;
+        blur = cam.GetComponent<CameraFilterPack_Blur_Blurry>();
 
         dispInt = new Modifier(displacement,"intensity");
         twist = new Modifier(twister, "angle");
@@ -226,25 +228,37 @@ public class GemgefParameters : MonoBehaviour {
             ray.AmbientColor = Color.white * (1- SL004KontrVG);
             raymarchLight1.intensity = SL004KontrVG * 2;
             raymarchLight2.intensity = SL004KontrVG * 1;
-    /*
-    ColorGradingModel.Settings grading = postpro.colorGrading.settings;
-    grading.basic.contrast = BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { 0.1f, 0.2f, 1, 2, 2 });
-    grading.basic.postExposure = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { -5, -4, 0, 10, 10 });
-    grading.basic.saturation = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { 1.1f, 1f, 1, 1, .9f });
-    grading.basic.saturation *= BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { .7f, .85f, 1, 1.2f, 1.4f });
-    postpro.colorGrading.settings = grading;
-    */
-    DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
-            lense.focalLength = BenjasMath.map(SL004KontrVG, 0, .1f,  1.2f, 1.1f);
-            lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , -1, -10 );
-            lense.focalLength +=  BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 7f });
-            lense.focalLength += Mathf.Pow(SL008Transparenz, 4)*4f;
-            lense.focalLength = Mathf.Clamp(lense.focalLength, 0, 100);
+            /*
+            ColorGradingModel.Settings grading = postpro.colorGrading.settings;
+            grading.basic.contrast = BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { 0.1f, 0.2f, 1, 2, 2 });
+            grading.basic.postExposure = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { -5, -4, 0, 10, 10 });
+            grading.basic.saturation = BenjasMath.mapSteps(SL004KontrVG, stepsSL004, new float[] { 1.1f, 1f, 1, 1, .9f });
+            grading.basic.saturation *= BenjasMath.mapSteps(SL002KontrHG, stepsSL002, new float[] { .7f, .85f, 1, 1.2f, 1.4f });
+            postpro.colorGrading.settings = grading;
+            */
 
 
-            postpro.depthOfField.settings = lense;
+            blur.Amount = .5f;
+            blur.Amount += BenjasMath.map(SL004KontrVG, 0, .1f, .2f, .0f);
+            blur.Amount += BenjasMath.map(SL002KontrHG + SL004KontrVG, 1.0f, 1.8f, -0, -3);
 
+            blur.Amount += BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 1.5f });
+            blur.Amount += Mathf.Pow(SL008Transparenz, 4) * 4f;
+            blur.Amount = Mathf.Clamp(blur.Amount, 0, 3f);
+
+            /*
+            DepthOfFieldModel.Settings lense = postpro.depthOfField.settings;
+                    lense.focalLength = BenjasMath.map(SL004KontrVG, 0, .1f,  1.2f, 1.1f);
+                    lense.focalLength += BenjasMath.map(SL002KontrHG + SL004KontrVG,  0.9f, 1 , -1, -10 );
+                    lense.focalLength +=  BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0f, 0.05f, 7f });
+                    lense.focalLength += Mathf.Pow(SL008Transparenz, 4)*4f;
+                    lense.focalLength = Mathf.Clamp(lense.focalLength, 0, 100);
+
+
+                    postpro.depthOfField.settings = lense;
+                    */
         }
+        
 
 
     }

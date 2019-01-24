@@ -37,7 +37,14 @@ public class GemgefBackround : MonoBehaviour {
 
         col = materialFront.GetColor("_Color");
         
-        float value = BenjasMath.mapSteps(pars.SL008Transparenz, pars.stepsSL008);
+        float value = BenjasMath.mapSteps(pars.SL008Transparenz, pars.stepsSL008, new float[] {.0f,.3f,.5f,.8f });
+
+        // since transparency hits stronger, the more equal the colors of foreground and background, 
+        // lets make it less strong then
+        float diffCol = Mathf.Clamp01(0.3f + Mathf.Abs(pars.SL003HVG - pars.SL001HHG)*5 + Mathf.Abs(pars.SL003SVG - pars.SL001SHG));
+        float diffBright = Mathf.Clamp01(Mathf.Abs(pars.SL003BVG - pars.SL001BHG) + pars.SL003BVG);
+        value *= BenjasMath.map(diffBright * diffCol,0.0f, 0.5f, 0.1f, 1.0f);
+
         value = Mathf.Lerp(value, col.a, pars.smoothFactor0to1);
         col = Color.Lerp(Color.HSVToRGB(pars.SL001HHG, pars.SL001SHG, pars.SL001BHG * 3), col, pars.smoothFactor0to1);
         col.a = value;

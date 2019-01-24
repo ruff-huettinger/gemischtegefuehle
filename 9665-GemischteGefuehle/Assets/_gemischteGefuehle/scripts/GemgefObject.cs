@@ -229,7 +229,9 @@ public Vector3 eulers;
         float morphByAgr = BenjasMath.mapSteps(Mathf.Lerp(pars.SL010Aggregatzustand, randomBase.x, varianz), pars.stepsSL010, new float[] { .0f, 1, 1 });
         value = Mathf.Lerp(morphByAgr, morphByFrag, value);
         morph.set(value);
-        col.set(pars.SL003HVG, pars.SL003SVG, Mathf.Pow(pars.SL003BVG,3)*8, randomBase, varianz);
+        float Brightness = BenjasMath.map(pars.SL001BHG, 0f, .2f, .03f, 0f); // base brightness to not have black on black
+        Brightness += Mathf.Pow(pars.SL003BVG, 3) * 8;
+        col.set(pars.SL003HVG, pars.SL003SVG, Brightness, randomBase, varianz);
 
     }
 

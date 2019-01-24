@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3617391682
+  _savedGUID: 2017807298
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 888508319
+  _savedGUID: 1211238258
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -1010,7 +1010,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: 346495679
+    lastHash: 848055784
 --- !u!1 &108082045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 888508317
+  _savedGUID: 2421091924
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -1450,7 +1450,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -103843015
+    lastHash: 496917503
 --- !u!1 &131646626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3664445837
+  _savedGUID: 1258292512
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -1993,7 +1993,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -2088408861
+    lastHash: 681883972
 --- !u!1 &210795825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,7 +2933,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2454592299
+  _savedGUID: 1211238341
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2051307667
+  _savedGUID: 2017807114
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -4268,7 +4268,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: 497405344
+    lastHash: 1875959846
 --- !u!1 &414610163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,7 +4342,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2454592194
+  _savedGUID: 2777322001
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -4877,7 +4877,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1291792811
+  _savedGUID: 1258292324
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -5276,7 +5276,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -571390324
+    lastHash: 1085168435
 --- !u!1 &549698304
 GameObject:
   m_ObjectHideFlags: 0
@@ -5317,7 +5317,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1291792813
+  _savedGUID: 3987175675
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -5716,7 +5716,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -571390322
+    lastHash: -401071145
 --- !u!1 &552230082
 GameObject:
   m_ObjectHideFlags: 0
@@ -5883,7 +5883,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 128993401
+  _savedGUID: 3180606619
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -6184,7 +6184,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3617391637
+  _savedGUID: 2017807203
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -6641,7 +6641,7 @@ MonoBehaviour:
   m_Script: {fileID: 833336753, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 888508284
+  _savedGUID: 1211238157
   Recursive: 0
   blend:
     snippet: {fileID: 11400000, guid: 44192f1753ca5aa45a792ab7d2eb47f2, type: 2}
@@ -7006,7 +7006,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1291792714
+  _savedGUID: 1258292293
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -7405,7 +7405,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -571390426
+    lastHash: 325653510
 --- !u!1 &713920827
 GameObject:
   m_ObjectHideFlags: 0
@@ -7503,7 +7503,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 4020676069
+  _savedGUID: 3987175648
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -7918,6 +7918,7 @@ GameObject:
   - component: {fileID: 769695578}
   - component: {fileID: 769695577}
   - component: {fileID: 769695580}
+  - component: {fileID: 769695581}
   m_Layer: 11
   m_Name: Camera
   m_TagString: Untagged
@@ -8005,6 +8006,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 4ffd13c08f6dd0c469308534272eadf7, type: 2}
+--- !u!114 &769695581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 769695575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d27c34d2978d14a91f8fdabf576bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: d1060eea8f2b2a24fa36c8c229a0633a, type: 3}
+  Amount: 2
+  FastFilter: 2
 --- !u!1 &770214799
 GameObject:
   m_ObjectHideFlags: 0
@@ -8045,7 +8060,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2051307605
+  _savedGUID: 2777322057
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -8444,7 +8459,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: 1303974396
+    lastHash: 1109687321
 --- !u!1 &774263623
 GameObject:
   m_ObjectHideFlags: 0
@@ -8644,8 +8659,10 @@ MonoBehaviour:
   - 1
   SL008Transparenz: 0
   stepsSL008:
-  - 0
-  - 0.8
+  - 0.01
+  - 0.3
+  - 0.7
+  - 1
   SL009Varianz: 0
   SL010Aggregatzustand: 0
   stepsSL010:
@@ -8676,7 +8693,7 @@ MonoBehaviour:
   repeatDistance: {x: 80, y: 1, z: 80}
   raymarchLight1: {fileID: 2069418017}
   raymarchLight2: {fileID: 1582405640}
-  post: {fileID: 769695580}
+  cam: {fileID: 769695579}
   randomBase:
   - {x: 0.7652304, y: 0.97460604, z: 0.46611053}
   - {x: 0.027668957, y: 0.21951893, z: 0.32520548}
@@ -9249,7 +9266,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 4020676100
+  _savedGUID: 3987175745
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -9945,7 +9962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateThisWindow: 0
-  lastUpdate: 03:35:21
+  lastUpdate: 12:37:46
   observingShader: 1
   generatedShader: {fileID: 4800000, guid: 1358d5fa7b15a36459e4c700a534b96a, type: 3}
   info: shader looks ok
@@ -10049,7 +10066,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2454592165
+  _savedGUID: 1211238219
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -10759,7 +10776,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2857877117
+  _savedGUID: 3180606908
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -11210,7 +11227,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2454592582
+  _savedGUID: 1211238446
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -11609,7 +11626,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -705380325
+    lastHash: -1880827371
 --- !u!1 &1240289390
 GameObject:
   m_ObjectHideFlags: 0
@@ -11664,7 +11681,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 888508643
+  _savedGUID: 2421092122
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -11904,7 +11921,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 935562814
+  _savedGUID: 855008185
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -12303,7 +12320,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -1773869212
+    lastHash: 1494040337
 --- !u!1 &1351571627
 GameObject:
   m_ObjectHideFlags: 0
@@ -12749,7 +12766,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2857877148
+  _savedGUID: 3180607005
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -13215,7 +13232,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2454592613
+  _savedGUID: 1211238543
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -13614,7 +13631,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -1915234000
+    lastHash: -1880827399
 --- !u!1 &1582405638
 GameObject:
   m_ObjectHideFlags: 0
@@ -13643,11 +13660,11 @@ MonoBehaviour:
   m_Script: {fileID: -895327080, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 888508678
+  _savedGUID: 3725053680
   ShadowSharpness: 2.4
   ShadowSteps: 2
   hash:
-    lastHash: 105852726
+    lastHash: -1621486541
 --- !u!108 &1582405640
 Light:
   m_ObjectHideFlags: 0
@@ -14009,7 +14026,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 4161838766
+  _savedGUID: 1755685212
   modifier:
     snippet: {fileID: 11400000, guid: 7f5e1bd4d9b12b641b468eb79f113fdc, type: 2}
     inputs:
@@ -14225,7 +14242,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1432955411
+  _savedGUID: 3321769153
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -14582,7 +14599,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 626386357
+  _savedGUID: 2158969739
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -14809,7 +14826,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 626386353
+  _savedGUID: 2158969735
   modifier:
     snippet: {fileID: 11400000, guid: 86f1660c6418e2b4eb5dca596c9558da, type: 2}
     inputs:
@@ -15192,7 +15209,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3758554237
+  _savedGUID: 1352400687
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -15591,7 +15608,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: 1522948864
+    lastHash: -1394878847
 --- !u!1 &1758824609
 GameObject:
   m_ObjectHideFlags: 0
@@ -15632,7 +15649,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1029670886
+  _savedGUID: 1352400693
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -16031,7 +16048,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: 167425736
+    lastHash: 1334004512
 --- !u!1 &1826940338
 GameObject:
   m_ObjectHideFlags: 0
@@ -16120,7 +16137,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2239524465
+  _savedGUID: 996170422
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -16649,7 +16666,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 4161838795
+  _savedGUID: 1755685311
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -17163,7 +17180,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2192470329
+  _savedGUID: 4081284137
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -17562,7 +17579,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -454225886
+    lastHash: 1592950199
 --- !u!1 &2063770446
 GameObject:
   m_ObjectHideFlags: 0
@@ -17687,11 +17704,11 @@ MonoBehaviour:
   m_Script: {fileID: -895327080, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 3758554270
+  _savedGUID: 1352400782
   ShadowSharpness: 2.4
   ShadowSteps: 2
   hash:
-    lastHash: 1025436081
+    lastHash: 1007773277
 --- !u!108 &2069418017
 Light:
   m_ObjectHideFlags: 0
@@ -17831,7 +17848,7 @@ MonoBehaviour:
   m_Script: {fileID: -1971466593, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 1029670925
+  _savedGUID: 3725053740
   modifier:
     snippet: {fileID: 11400000, guid: 1d59cc688da4246dc91462089f6802d5, type: 2}
     inputs:
@@ -18071,7 +18088,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 2239524494
+  _savedGUID: 996170389
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -18470,7 +18487,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -1829543691
+    lastHash: -821912909
 --- !u!1 &2111272870
 GameObject:
   m_ObjectHideFlags: 0
@@ -18724,7 +18741,7 @@ MonoBehaviour:
   m_Script: {fileID: -910582366, guid: 1741f56c22154746ae9dc695200288e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savedGUID: 4161838698
+  _savedGUID: 1755685276
   subtractMode: 0
   shape:
     snippet: {fileID: 11400000, guid: f5bf6f8d5ca8b0540a650b39ca883d4e, type: 2}
@@ -19123,7 +19140,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
   hash:
-    lastHash: -1950085341
+    lastHash: -2054957229
 --- !u!1 &2136920306
 GameObject:
   m_ObjectHideFlags: 0
