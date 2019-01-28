@@ -8,30 +8,30 @@ using UnityEngine.UI;
 public class GemgefParameters : MonoBehaviour {
 
     [Header("HSB Background")]
-    public float SL001HHG;
-    public float SL001SHG;
-    public float SL001BHG;
-    public float SL002KontrHG;
+    [Range(0,1)] public float SL001HHG;
+    [Range(0,1)] public float SL001SHG;
+    [Range(0,1)] public float SL001BHG;
+    [Range(0,1)] public float SL002KontrHG;
     [HideInInspector] public float[] stepsSL002 = new float[] { 0, .2f, .5f, .8f, 1 };
 
     [Header("HSB Foreground")]
-    public float SL003HVG;
-    public float SL003SVG;
-    public float SL003BVG;
-    public float SL004KontrVG;
+    [Range(0,1)] public float SL003HVG;
+    [Range(0,1)] public float SL003SVG;
+    [Range(0,1)] public float SL003BVG;
+    [Range(0,1)] public float SL004KontrVG;
     [HideInInspector] public float[] stepsSL004 = new float[] { 0, .2f, .5f, .8f, 1 };
 
     [Header("SLiders")]
-    public float SL005Fragmentierung;
+    [Range(0,1)] public float SL005Fragmentierung;
     [HideInInspector] public float[] stepsSL005 = new float[] { 0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f };
-    public float SL006Teilung;
+    [Range(0,1)] public float SL006Teilung;
     [HideInInspector] public float[] stepsSL006 = new float[] { 0, .33f, .66f, 1 };
-    public float SL007Muster;
+    [Range(0,1)] public float SL007Muster;
     [HideInInspector] public float[] stepsSL007 = new float[] { 0, .3f, .6f, 1 };
-    public float SL008Transparenz;
+    [Range(0,1)] public float SL008Transparenz;
     [HideInInspector] public float[] stepsSL008 = new float[] { 0.01f, .3f, .8f, 1.0f };
-    public float SL009Varianz;
-    public float SL010Aggregatzustand;
+    [Range(0,1)] public float SL009Varianz;
+    [Range(0,1)] public float SL010Aggregatzustand;
     [HideInInspector] public float[] stepsSL010 = new float[] { 0, .6f, 1 };
     [HideInInspector] public float[] inputBorders01 = new float[] { 0, 1 };
 
@@ -40,8 +40,19 @@ public class GemgefParameters : MonoBehaviour {
 
 
 
-    [HideInInspector] public float SL04Bewegung;
+    [HideInInspector] [Range(0,1)] public float SL04Bewegung;
     [HideInInspector] public float[] stepsSL04 = new float[] { 0, .1f, .2f, .3f, .4f, .55f, .7f, .9f, 1 };
+
+    [Header("quality scaling")]
+    public bool autoadjustQuality = true;
+    public float deltaTime = 0.0f;
+    public float ms = 0;
+    public float realFPS = 60;
+    public int fps = 60;
+    [Range(10, 120)] public float targetFPS = 60;
+    [Range(0.9f, 1.1f)] public float deltaQuality = 1;
+    [Range(0f, 2f)] public float qualityScaling = 1f;
+    public Text InfoText;
 
     [Header("Better Dont Touch")]
     public bool prohibitUpdate = false;
@@ -73,10 +84,7 @@ public class GemgefParameters : MonoBehaviour {
     public Vector3[] randomBase;
     public bool overrideRandomBase = false;
 
-    public float deltaTime = 0.0f;
-    public bool adjustQualityByFrametime = true;
-    public float qualityScaling = 1f;
-    public Text InfoText;
+
 
 
     // Use this for initialization
@@ -109,10 +117,25 @@ public class GemgefParameters : MonoBehaviour {
         Repeater.GetInput("x").SetToggle(repeatDistance.x > 1);
         Repeater.GetInput("y").SetToggle(repeatDistance.y > 1);
         Repeater.GetInput("z").SetToggle(repeatDistance.z > 1);
+        Application.logMessageReceived += LogCallback;
     }
 
+    public void LogCallback(string condition, string stackTrace, LogType type)
+    {
+        logCon = condition;
 
- 
+        //Resource ID out of range in UpdateResource: 1326000 (max is 1048575)
+        //(Filename: Line: 80)
+        if (condition.Contains("Resource ID out of range in UpdateResource"))
+        {
+            cleanUp();
+            atemptsToFixResourceIDBug++;
+        }
+    }
+
+    public int atemptsToFixResourceIDBug = 0;
+    public string logCon;
+
 
     private void clampSliders()
     {
@@ -144,44 +167,26 @@ public class GemgefParameters : MonoBehaviour {
         }
     }
 
-    
-    public int fps = 60;
-    public float ms = 0;
-    float realFPS = 60;
+
 
     void managePerformance()
     {
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        deltaTime = Time.smoothDeltaTime;
         if (deltaTime > 0)
         {
-            realFPS = 1 / deltaTime;
-            fps = (int)realFPS;
-            ms = (deltaTime * 1000f);
+            realFPS =  1.0f / deltaTime;
+            ms = Mathf.Lerp(deltaTime * 1000f,ms,0.99f);
+            fps = (int) (1000/ms);
         }
         memoryUsed = (((float)UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong()) / (1024f * 1024f));
-        if (restartAfterCleanup)
+        deltaQuality = BenjasMath.mapSteps(realFPS, new float[] { targetFPS * 0.66f, targetFPS * 1.00f, targetFPS * 1.3f }, new float[] { 0.950f, 1, 1.01f });
+        if (restartAfterCleanup) cleanUpRestart();
+        else if (memoryUsed > 999) cleanUp();
+        else if (autoadjustQuality)
         {
-            cleanUpRestart();
+            qualityScaling *= deltaQuality;
         }
-        else if (memoryUsed > 999)
-        {
-            cleanUp();
-        }
-        else if (adjustQualityByFrametime)
-        {
-            if (realFPS < 13)
-                qualityScaling *= 0.90f;
-            if (realFPS < 16)
-                qualityScaling *= 0.95f;
-            else if(realFPS < 18)
-                qualityScaling *= 0.99f;
-            else if (realFPS > 20 && qualityScaling < 1)
-                qualityScaling *= 1.01f;
-            else if (realFPS < 30 && qualityScaling > 1)
-                qualityScaling *= 0.99f;
-            else if (realFPS > 30)
-                qualityScaling *= 1.01f;
-
+        qualityScaling = Mathf.Max(qualityScaling, 0.01f);
         // manage some values manually because we know what is going on
         float rayValue; //use this for calculations before applying
 
@@ -195,14 +200,15 @@ public class GemgefParameters : MonoBehaviour {
         rayValue = BenjasMath.mapSteps(SL010Aggregatzustand, stepsSL010, new float[] { 0.5f, 0.4f, 0.3f });
         rayValue += BenjasMath.mapSteps(SL005Fragmentierung, stepsSL005, new float[] { 0f, 0.0f, 0.05f, 0.1f, 0.2f, 0f });
         ray.ExtraAccuracy = Mathf.Clamp(rayValue * (.5f+.5f*qualityScaling),0.3f, 0.8f);
-        }
 
 
-        InfoText.text = (1 / deltaTime).ToString("N0") + " fps"
-                + " / " + (deltaTime * 1000).ToString("N0") + " ms"
+
+        InfoText.text = fps.ToString("N0") + " fps"
+                + " / " + ms.ToString("N0") + " ms"
                 + "\n" + memoryUsed.ToString("N2") + " MB Allocated memory"
-        + "\n" + "raymarching quality adjustments"
-                + "\n" + qualityScaling.ToString("N2") + "relative quality"
+                + "\n" + "attempts to fix ResouceID Bug " + atemptsToFixResourceIDBug.ToString()
+                + "\n" + "raymarching quality adjustments"
+                + "\n" + qualityScaling.ToString("N2") + " (x "+deltaQuality.ToString("N3") +")relative quality"
                 + "\n" + ray.Resolution.ToString("N2") + " resolution"
                 + "\n" + ray.Steps.ToString("N0") + " Steps"
                 + "\n" + ray.ExtraAccuracy.ToString("N2") + " Accuracy";
@@ -225,7 +231,9 @@ public class GemgefParameters : MonoBehaviour {
 
         restartAfterCleanup = true;
     }
+
     bool restartAfterCleanup = false;
+
     public void cleanUpRestart()
     {
         Debug.Log("restart after cleanup");
