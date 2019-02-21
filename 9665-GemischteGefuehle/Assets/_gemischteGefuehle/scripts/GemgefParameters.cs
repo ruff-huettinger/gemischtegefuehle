@@ -355,9 +355,9 @@ public class GemgefParameters : MonoBehaviour {
 
         public void set(float H, float S, float B,  Vector3 randomBase = new Vector3(), float randomValue = 0)
         {
-            H = Mathf.Lerp(H,  randomBase.x, randomValue);
-            S = Mathf.Lerp(S,  randomBase.y, randomValue);
-            B = Mathf.Lerp(B,  randomBase.z, randomValue);
+            H = Mathf.Lerp(H,  randomBase.x, randomValue * 0.3f);
+            S = Mathf.Lerp(S,  randomBase.y, randomValue * 0.2f);
+            B = Mathf.Lerp(B,  randomBase.z, randomValue * 0.1f);
 
             input.color = Color.Lerp( Color.HSVToRGB(H,S,B) , input.color, blend);
         }
